@@ -6,28 +6,113 @@
     <title>Social Media and Mental Health Analysis</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            margin: 20px;
-            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             text-align: center;
-        }
-        h1, h2 {
             color: #2c3e50;
         }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
         ul {
             margin-left: 20px;
             text-align: left;
+            list-style-type: none;
         }
+
+        ul li {
+            margin: 10px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        ul li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
         .section {
-            background-color: #ffffff;
-            padding: 20px;
-            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            margin: 30px auto;
             max-width: 800px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #3498db;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             text-align: left;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        ol li {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.05);
+            border-radius: 8px;
+        }
+
+        strong {
+            color: #2980b9;
+        }
+
+        .header-subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -137,6 +222,15 @@
             <li>Classify mood based on social media usage</li>
             <li>Show correlation between social media usage and mood</li>
         </ul>
+    </div>
+
+    <div class="section">
+        <h2>References</h2>
+        <ol>
+            <li>L. yi Lin et al., "Association between Social Media Use and Depression among US Young Adults," Depression and Anxiety, vol. 33, no. 4, pp. 323–331, Jan. 2016, doi: <a href="https://doi.org/10.1002/da.22466" target="_blank">https://doi.org/10.1002/da.22466</a></li>
+            <li>M. De Choudhury, M. Gamon, S. Counts, and E. Horvitz, "Predicting Depression via Social Media," Proceedings of the International AAAI Conference on Web and Social Media, vol. 7, no. 1, pp. 128–137, Aug. 2021, doi: <a href="https://doi.org/10.1609/icwsm.v7i1.14432" target="_blank">https://doi.org/10.1609/icwsm.v7i1.14432</a></li>
+            <li>M. Burke and R. E. Kraut, "The Relationship Between Facebook Use and Well-Being Depends on Communication Type and Tie Strength," Journal of Computer-Mediated Communication, vol. 21, no. 4, pp. 265–281, Jul. 2016, doi: <a href="https://doi.org/10.1111/jcc4.12162" target="_blank">https://doi.org/10.1111/jcc4.12162</a></li>
+        </ol>
     </div>
 
 </body>
