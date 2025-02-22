@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoorDash ETA Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f0f2f5;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        ul {
+            margin-left: 20px;
+            text-align: left;
+        }
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>DoorDash ETA Prediction</h1>
+    <h3>Team Members: Chathurvedhi Talapaneni, Om Khare, Sai Gokhale, Swebert Correa, Tanmay Chavan</h3>
+
+    <div class="section">
+        <h2>Introduction</h2>
+        <p>This project aims to use machine learning to accurately predict the estimated time of arrival (ETA) for DoorDash deliveries. By leveraging various features of historical delivery data, we can create a model that improves customer satisfaction and operational efficiency.</p>
+    </div>
+
+    <div class="section">
+        <h2>Related Works</h2>
+        <p>Predicting the estimated time of arrival (ETA) is a lucrative application of Machine Learning. Wen et al. [1] conduct a comprehensive study of the problem, its types, and supervised and unsupervised approaches for it. Khiari et al. [2] explore random forests and ensembling approaches. Derrow-Pinion et al. [3] observe that graph representation is useful for this problem, and use a graph neural network based approach for predicting ETA. Araujo et al. [4] present an end-to-end convolutional neural network based pipeline for predicting delivery time for packages.</p>
+    </div>
+
+    <div class="section">
+        <h2>Dataset Description</h2>
+        <p>We are using the DoorDash ETA prediction dataset from <a href="https://www.kaggle.com/datasets/dharun4772/doordash-eta-prediction" target="_blank">Kaggle</a>. The dataset contains 197,428 data samples with features such as city, store ID, number of items, and DoorDash marketplace features like the number of available dashers and estimated travel time from the store to the customer.</p>
+    </div>
+
+    <div class="section">
+        <h2>Problem Definition</h2>
+        <p>The main goal of our project is to estimate the time required for delivering food based on past data from DoorDash. Accurate predictions can result in happier customers and optimized delivery routes. The model uses features such as the number of ordered items, total price, and the store from which the food is ordered.</p>
+        <img src="./Images/ETA.png" alt="ETA Prediction Image" style="width: 300px; height: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
+    </div>
+
+    <div class="section">
+        <h2>Motivation</h2>
+        <ul>
+            <li><strong>Customer Satisfaction:</strong> Delivering food on time ensures customer satisfaction.</li>
+            <li><strong>Operational Efficiency:</strong> Accurate ETAs help DoorDash assign drivers efficiently and reduce their wait times.</li>
+            <li><strong>Cost Reduction:</strong> By optimizing routes and minimizing delays, the company can save on fuel and reduce compensation for late orders.</li>
+            <li><strong>Competitive Advantage:</strong> Consistent timely deliveries give DoorDash an edge over competitors.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Data</h2>
+        <p>The dataset contains historical DoorDash delivery data from early 2015, covering various cities. It includes:</p>
+        <ul>
+            <li><strong>Time Features:</strong> Timestamps for order placement and delivery.</li>
+            <li><strong>Store Features:</strong> Restaurant ID, cuisine category, and order protocol.</li>
+            <li><strong>Order Features:</strong> Total items, subtotal (in cents), and item price range.</li>
+            <li><strong>Marketplace Features:</strong> Number of available and busy Dashers, and outstanding orders within 10 miles.</li>
+            <li><strong>Predicted Features:</strong> Estimated durations for order confirmation and delivery.</li>
+        </ul>
+        <p>The target variable is the <strong>total delivery duration</strong> (in seconds), derived from order placement to delivery. The dataset has 197,428 rows with some missing and noisy values, requiring preprocessing for accurate modeling.</p>
+        <p>Below is a visualization of the distribution of store primary categories, highlighting the frequency of different cuisine types across the dataset.</p>
+        <div style="text-align: center; margin-top: 20px;">
+            <img src="./Images/store_primary_category.png" alt="Store Primary Category Distribution" style="width: 400px; height: auto; border-radius: 8px;">
+            <p><em>Figure: Distribution of Store Primary Categories</em></p>
+        </div>
+    </div>    
+
+    <div class="section">
+        <h2>Data Preprocessing</h2>
+        <p>Data preprocessing is a crucial step in ensuring the dataset is clean, consistent, and ready for building accurate machine learning models. We performed a combination of non-ML-based preprocessing techniques and ML-based methods for handling outliers.</p>
+        
+        <h3>Non-ML Preprocessing Techniques</h3>
+        <ul>
+            <li><strong>Feature Engineering:</strong> 
+                - New temporal features were created from the <code>created_at</code> timestamp, including:
+                <ul>
+                    <li><strong>Day of the Week:</strong> Both as name (e.g., Monday) and numerical value (0-6).</li>
+                    <li><strong>Month:</strong> Extracted as an integer representing the month of the year.</li>
+                    <li><strong>Hour of the Day:</strong> Extracted to understand delivery behavior across time periods.</li>
+                </ul>
+            </li>
+            <li><strong>Feature Encoding:</strong> 
+                Categorical variables, such as <code>store_primary_category</code>, <code>market regions</code>, were label-encoded using <code>LabelEncoder</code> for compatibility with machine learning models.
+            </li>
+            <li><strong>Feature Reduction:</strong> 
+                Highly correlated features were identified using a Pearson correlation heatmap, and redundant features were dropped. These correlations make sense intuitively. For example, there is a high correlation between <code>dashers</code> (doordash delivery executives) who are busy and <code>total_onshift_dashers</code> who are on shift, and the features reflect this correlation. We then choose to drop a few features with high correlation.
+            </li>
+            <div style="text-align: center; margin-top: 20px;">
+                <img src="./Images/corr.png" alt="Correlation Heatmap" style="width: 600px; height: auto; border-radius: 8px;">
+                <p><em>Figure: Correlation Heatmap highlighting relationships between features.</em></p>
+            </div>
+            <li><strong>Outlier Removal Using IQR:</strong>
+                Outliers in features such as <code>subtotal</code>, <code>delivery_time</code>, and <code>max_item_price</code> were initially detected and removed using the Interquartile Range (IQR) method. However, we observed that using only IQR did not effectively capture more complex or nuanced outliers, especially for features with non-linear relationships or skewed distributions. This prompted us to use advanced machine learning techniques for outlier detection.
+            </li>
+        </ul>
+    
+        <h3>ML-Based Outlier Detection [Unsupervised Learning]</h3>
+        <p>In addition to non-ML preprocessing techniques, we employed machine learning-based methods to detect and handle complex outliers in the <code>delivery_time</code> feature. These methods included:</p>
+        <h4>Gaussian Mixture Models (GMM)</h3>
+        <p>
+            GMM is a probabilistic approach that assumes the data is generated from a mixture of Gaussian distributions. It fits the dataset to a specified number of Gaussian distributions and assigns probabilities to each data point, indicating how likely it is to belong to the mixture.
+        </p>
+        <ul>
+            <li><strong>Implementation:</strong>
+                <ul>
+                    <li>Fitted a single-component GMM to the <code>delivery_time</code> feature to capture its distribution.</li>
+                    <li>Calculated likelihood scores for all data points.</li>
+                    <li>Defined a threshold based on the 10th percentile of likelihood scores, treating points below this threshold as outliers.</li>
+                </ul>
+            </li>
+            <li><strong>Outcome:</strong>
+                <ul>
+                    <li>GMM successfully identified outliers in a probabilistic manner, flagging data points with low likelihoods.</li>
+                    <li>The process improved the dataset quality by retaining valid data points while removing noise.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>K-Means Clustering</h3>
+        <p>
+            K-Means is a clustering algorithm that partitions data into <em>K</em> clusters by minimizing the variance within each cluster. Although primarily a clustering technique, it can also be used for outlier detection by analyzing distances from cluster centroids.
+        </p>
+        <ul>
+            <li><strong>Implementation:</strong>
+                <ul>
+                    <li>Fitted a K-Means model with a single cluster to the <code>delivery_time</code> feature.</li>
+                    <li>Calculated the Euclidean distance of each point from the cluster centroid.</li>
+                    <li>Defined a threshold at the 90th percentile of distances, treating points exceeding this threshold as outliers.</li>
+                </ul>
+            </li>
+            <li><strong>Outcome:</strong>
+                <ul>
+                    <li>K-Means flagged outliers based on distance thresholds, providing an alternate perspective on anomalous data points.</li>
+                    <li>The process cleaned the dataset by removing noise and retaining valid points.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Comparison of GMM and K-Means</h3>
+        <p>
+            While GMM and K-Means use different approaches—probabilistic and geometric, respectively—their performance on our dataset was nearly identical. Both methods flagged similar data points as outliers, leading to comparable improvements in dataset quality. This highlights their effectiveness and reinforces confidence in the preprocessing pipeline.
+        </p>
+        <ul>
+            <li><strong>GMM:</strong> Captured outliers using likelihood scores, focusing on probabilistic nuances in the data.</li>
+            <li><strong>K-Means:</strong> Identified outliers based on distances from the cluster centroid, offering a geometric perspective.</li>
+            <li><strong>Observation:</strong> Both methods ultimately flagged the same or nearly the same outliers, indicating that either approach could be used interchangeably for this dataset.</li>
+        </ul>
+        <p>
+            Based on these results, we concluded that both methods are robust for detecting outliers in this context.
+        </p>
+
+        <h3>Feature Dimensionality Reduction [Unsupervised Learning]</h3>
+        <h4>Principal Component Analysis (PCA)</h4>
+        <p>
+            We attempted to use Principal Component Analysis (PCA) for dimensionality reduction to simplify the dataset and improve model performance. The main idea was to reduce redundancy and retain only the most significant components, making the dataset easier for models to learn from.
+        </p>
+        <ul>
+            <li>We used the <code>sklearn.decomposition.PCA</code> library to apply PCA on our dataset.</li>
+            <li>After testing various retained variance thresholds, we decided on retaining <strong>95% of the variance</strong>, which reduced the number of features to a smaller subset.</li>
+            <li>The aim was to reduce feature dimensionality while maintaining most of the information in the dataset.</li>
+        </ul>
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="./Images/variance-elbow.png" alt="PCA Explained Variance Plot" style="width: 600px; height: auto; border-radius: 8px;">
+            <p style="font-style: italic; font-size: 14px;">Figure: Cumulative Explained Variance by PCA Components</p>
+        </div>
+        <p>
+            However, the results of using PCA for dimensionality reduction did not improve model performance. In fact, the predictive accuracy worsened slightly in most cases.
+        </p>
+        <ul>
+            <li><strong>Reason for Poor Results:</strong> PCA projects features onto a new space, losing the interpretability of the original features. This affected our model’s ability to leverage domain-specific knowledge inherent in features like <code>subtotal</code> or <code>delivery_time</code>.</li>
+            <li><strong>Conclusion:</strong> While PCA reduced feature dimensionality effectively, the transformed features did not perform well in our regression models. We decided to drop PCA from our pipeline to retain the original feature space and interpretability.</li>
+        </ul>
+        <p>
+            The PCA variance plot above shows that while the first two components explain over 95% of the variance, the transformed features lacked alignment with domain-specific patterns, leading to suboptimal results.
+        </p>
+    </div>
+
+    <!-- <div class="section">
+        <h2>Proposed Regression Models: [Uses Supervised Learning]</h2>
+        <p>We experimented with a variety of supervised learning models for the ETA prediction task. Below are the methods and rationale for selecting each:</p>
+        <ul>
+            <li><strong>Ridge Regression:</strong> A simple and efficient regression approach with regularization, chosen for its ability to handle multicollinearity.</li>
+            <li><strong>Polynomial Regression:</strong> Used to model non-linear relationships in the data, which are common in delivery time predictions.</li>
+            <li><strong>Support Vector Regression (SVR):</strong> This method leverages kernels to model complex patterns, making it robust for non-linear datasets.</li>
+            <li><strong>Decision Tree Regression:</strong> Highly interpretable and effective for capturing non-linear relationships.</li>
+            <li><strong>Random Forest Regression:</strong> Provides better generalization and performance than decision trees, though at the cost of reduced interpretability.</li>
+            <li><strong>Boosting Regression:</strong> Boosting approaches combine multiple weak learners for increased accuracy and robustness. We experimented with:
+                <ul>
+                    <li>Gradient Boosting</li>
+                    <li>AdaBoost</li>
+                    <li>XGBoost</li>
+                    <li>LightGBM</li>
+                    <li>CatBoost</li>
+                </ul>
+            </li>
+        </ul>
+        <p>For each model, we trained and evaluated its performance on the preprocessed datasets, using the following metrics:</p>
+        <ul>
+            <li><strong>Mean Squared Error (MSE):</strong> Measures the average squared difference between predicted and actual values.</li>
+            <li><strong>Mean Absolute Error (MAE):</strong> Captures the average magnitude of prediction errors.</li>
+            <li><strong>R-Squared (R²):</strong> Indicates how well the model captures the variance in delivery time.</li>
+            <li><strong>Explained Variance:</strong> Measures how much of the variability in the target variable is explained by the model.</li>
+        </ul>
+        <p>Below is the workflow implemented for model evaluation:</p>
+        <ol>
+            <li>Data splitting: The preprocessed datasets (<code>df_kmeans</code> and <code>df_gmm</code>) were split into training and testing sets (80-20).</li>
+            <li>Model training: Each model was trained on the training data for both datasets.</li>
+            <li>Performance evaluation: Models were evaluated on the testing data using the metrics mentioned above.</li>
+        </ol>
+        <p>These experiments provided insights into the strengths and weaknesses of different models for our dataset, guiding the selection of the best-performing approach.</p>
+    </div> -->
+
+    <div class="section">
+        <h2>Proposed Regression Models: [Uses Supervised Learning]</h2>
+        <p>We experimented with a variety of supervised learning models for the ETA prediction task. Below is a detailed description of each method and the rationale for selecting them:</p>
+        
+        <h3>1. Ridge Regression</h3>
+        <p>
+            Ridge Regression is a linear regression model that incorporates L2 regularization, penalizing large coefficient magnitudes to prevent overfitting. This makes it particularly effective in datasets with multicollinearity, where features are highly correlated. Its simplicity and computational efficiency make it a solid baseline for regression tasks.
+        </p>
+        
+        <h3>2. Polynomial Regression</h3>
+        <p>
+            Polynomial Regression extends linear regression by introducing polynomial features, allowing the model to capture non-linear relationships between predictors and the target variable. While it is useful for modeling curved patterns in the data, higher-degree polynomials can lead to overfitting and computational inefficiencies. Careful selection of the polynomial degree is critical for this method's success.
+        </p>
+        
+        <h3>3. Support Vector Regression (SVR)</h3>
+        <p>
+            Support Vector Regression (SVR) applies the principles of Support Vector Machines (SVM) to regression problems. By using kernel functions, SVR can transform the data into higher-dimensional spaces, making it capable of modeling complex non-linear relationships. This method is robust to outliers and works well with both linear and non-linear datasets. However, it tends to be computationally intensive due to the kernel transformations.
+        </p>
+        
+        <h3>4. Decision Tree Regression</h3>
+        <p>
+            Decision Tree Regression splits the data into hierarchical partitions based on feature thresholds, making it highly interpretable and effective at modeling non-linear relationships. It is particularly suitable for capturing interactions between features. However, decision trees are prone to overfitting, especially when they grow too deep without pruning.
+        </p>
+        
+        <h3>5. Random Forest Regression</h3>
+        <p>
+            Random Forest Regression is an ensemble learning method that constructs multiple decision trees and aggregates their predictions to improve generalization. By averaging the outputs of many trees, this method reduces overfitting and increases robustness. Random Forest is effective for capturing non-linear relationships and feature interactions but is less interpretable than a single decision tree.
+        </p>
+        
+        <h3>6. Boosting Regression</h3>
+        <p>
+            Boosting methods are ensemble techniques that combine the predictions of multiple weak learners, typically decision trees, to create a strong predictive model. They iteratively focus on correcting errors from previous models, achieving higher accuracy and robustness. We experimented with the following boosting methods:
+        </p>
+        <ul>
+            <li><strong>Gradient Boosting:</strong> Optimizes a loss function iteratively, making it a powerful tool for regression tasks.</li>
+            <li><strong>AdaBoost:</strong> Adjusts the weights of observations to focus on those with higher errors, improving prediction accuracy.</li>
+            <li><strong>XGBoost:</strong> Enhances Gradient Boosting with optimizations like tree pruning and regularization, offering faster and more accurate results.</li>
+            <li><strong>LightGBM:</strong> Uses a histogram-based approach for faster training, making it scalable and efficient for large datasets.</li>
+            <li><strong>CatBoost:</strong> Handles categorical features natively, reducing the need for extensive preprocessing and improving accuracy on datasets with mixed data types.</li>
+        </ul>
+    
+        <h3>Evaluation Metrics</h3>
+        <p>For each model, we evaluated performance using the following metrics:</p>
+        <ul>
+            <li><strong>Mean Squared Error (MSE):</strong> Measures the average squared difference between predicted and actual values, penalizing larger errors more heavily.</li>
+            <li><strong>Mean Absolute Error (MAE):</strong> Captures the average magnitude of prediction errors, providing an intuitive measure of accuracy.</li>
+            <li><strong>R-Squared (R²):</strong> Indicates the proportion of variance in the target variable explained by the model.</li>
+            <li><strong>Explained Variance:</strong> Measures the fraction of variance in the target variable captured by the predictions.</li>
+        </ul>
+
+        
+        <h3>Workflow</h3>
+        <p>The workflow implemented for model evaluation included the following steps:</p>
+        <ol>
+            <li><strong>Data Splitting:</strong> The preprocessed datasets (<code>df_kmeans</code> and <code>df_gmm</code>) were split into training and testing sets (80-20).</li>
+            <li><strong>Model Training:</strong> Each model was trained on the training data for both datasets.</li>
+            <li><strong>Performance Evaluation:</strong> Models were evaluated on the testing data using the metrics mentioned above.</li>
+        </ol>
+        <p>These experiments provided insights into the strengths and weaknesses of different models for our dataset, guiding the selection of the best-performing approach.</p>
+    </div>
+    
+    
+    <div class="section">
+        <h2>Results and Evaluation</h2>
+        <p>We evaluated the performance of different models based on four metrics: MSE, MAE, R², and Explained Variance. The training time for each model was also recorded. The tables below summarize the results:</p>
+
+        <h3>Model Performance Metrics</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Model</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">RMSE (minutes)</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">MAE</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">R²</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Explained Variance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Decision Tree</td><td style="border: 1px solid #ddd; padding: 8px;">16.570</td><td style="border: 1px solid #ddd; padding: 8px;">679.52</td><td style="border: 1px solid #ddd; padding: 8px;">-0.5995</td><td style="border: 1px solid #ddd; padding: 8px;">-0.5986</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 2)</td><td style="border: 1px solid #ddd; padding: 8px;">12.098</td><td style="border: 1px solid #ddd; padding: 8px;">502.45</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 3)</td><td style="border: 1px solid #ddd; padding: 8px;">11.957</td><td style="border: 1px solid #ddd; padding: 8px;">496.91</td><td style="border: 1px solid #ddd; padding: 8px;">0.1870</td><td style="border: 1px solid #ddd; padding: 8px;">0.1871</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 4)</td><td style="border: 1px solid #ddd; padding: 8px;">20.013</td><td style="border: 1px solid #ddd; padding: 8px;">502.45</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 5)</td><td style="border: 1px solid #ddd; padding: 8px;">54974.603</td><td style="border: 1px solid #ddd; padding: 8px;">502.45</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td><td style="border: 1px solid #ddd; padding: 8px;">0.1710</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Ridge Regression</td><td style="border: 1px solid #ddd; padding: 8px;">12.279</td><td style="border: 1px solid #ddd; padding: 8px;">508.68</td><td style="border: 1px solid #ddd; padding: 8px;">0.1523</td><td style="border: 1px solid #ddd; padding: 8px;">0.1523</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Support Vector Regression (SVR)</td><td style="border: 1px solid #ddd; padding: 8px;">13.067</td><td style="border: 1px solid #ddd; padding: 8px;">510.23</td><td style="border: 1px solid #ddd; padding: 8px;">0.1493</td><td style="border: 1px solid #ddd; padding: 8px;">0.1520</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">AdaBoost</td><td style="border: 1px solid #ddd; padding: 8px;">12.424</td><td style="border: 1px solid #ddd; padding: 8px;">520.19</td><td style="border: 1px solid #ddd; padding: 8px;">0.1406</td><td style="border: 1px solid #ddd; padding: 8px;">0.1514</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">CatBoost</td><td style="border: 1px solid #ddd; padding: 8px;">11.170</td><td style="border: 1px solid #ddd; padding: 8px;">467.34</td><td style="border: 1px solid #ddd; padding: 8px;">0.2737</td><td style="border: 1px solid #ddd; padding: 8px;">0.2737</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Gradient Boosting</td><td style="border: 1px solid #ddd; padding: 8px;">11.672</td><td style="border: 1px solid #ddd; padding: 8px;">487.23</td><td style="border: 1px solid #ddd; padding: 8px;">0.2210</td><td style="border: 1px solid #ddd; padding: 8px;">0.2211</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">LightGBM</td><td style="border: 1px solid #ddd; padding: 8px;">11.368</td><td style="border: 1px solid #ddd; padding: 8px;">475.19</td><td style="border: 1px solid #ddd; padding: 8px;">0.2536</td><td style="border: 1px solid #ddd; padding: 8px;">0.2536</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">Random Forest</td><td style="border: 1px solid #ddd; padding: 8px;">11.630</td><td style="border: 1px solid #ddd; padding: 8px;">485.19</td><td style="border: 1px solid #ddd; padding: 8px;">0.2224</td><td style="border: 1px solid #ddd; padding: 8px;">0.2228</td></tr>
+                <tr><td style="border: 1px solid #ddd; padding: 8px;">XGBoost</td><td style="border: 1px solid #ddd; padding: 8px;">11.246</td><td style="border: 1px solid #ddd; padding: 8px;">469.07</td><td style="border: 1px solid #ddd; padding: 8px;">0.2648</td><td style="border: 1px solid #ddd; padding: 8px;">0.2648</td></tr>
+            </tbody>
+        </table>
+        
+        <p><strong>RMSE as the primary metric:</strong> We used Root Mean Squared Error (RMSE) as the primary metric to compare the performance of different models. RMSE was chosen because it penalizes larger errors more heavily, making it a suitable metric for tasks like ETA prediction where large deviations in predictions can significantly impact customer experience and operational efficiency.</p>
+
+        <p>
+            We observe several interesting results here. Our simplest approach, <strong>Ridge Regression</strong>, performs well when compared to the rest of the models. It achieves an RMSE of 12.279, which is comparable to the best-performing methods.
+        </p>
+        <ul>
+            <li><strong>Polynomial Regression:</strong> 
+                Polynomial regression models exhibit high variance with respect to the degrees. The best-performing model was with degree 3, achieving an RMSE of 11.957. However, the polynomial regression model with degree 5 is completely inaccurate, with an extremely high RMSE score of 54,974.603. This highlights how higher-degree polynomial models should be avoided. A better approach for future work would be to use polynomial splines to better model the data.
+            </li>
+            <li><strong>Support Vector Regression (SVR):</strong> 
+                Obtains a modest RMSE of 13.067. Although its performance is decent, it is not as strong as some of the other approaches.
+            </li>
+            <li><strong>Decision Tree:</strong> 
+                The decision tree model did not perform as well, with a higher RMSE of 16.570 minutes. However, our random forest model obtained significant performance improvement, with an RMSE of 11.630 minutes. This supports the belief that random forests perform better than a single decision tree, albeit at the cost of interpretability and more computational time.
+            </li>
+            <li><strong>Boosting Approaches:</strong> 
+                Boosting methods performed exceptionally well overall. The differences between the best and worst-performing boosting methods were minimal:
+                <ul>
+                    <li><strong>AdaBoost:</strong> RMSE of 12.424, the highest among boosting methods.</li>
+                    <li><strong>XGBoost:</strong> RMSE of 11.246, second-best performance.</li>
+                    <li><strong>CatBoost:</strong> The best-performing model overall, with an RMSE of 11.170 minutes.</li>
+                </ul>
+                These results show that boosting provides excellent performance gains regardless of the specific variant used.
+            </li>
+        </ul>
+    
+        <h3>Model Training Time</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Model</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Time (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Decision Tree</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">1.017</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 2)</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">0.219</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 3)</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">0.948</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 4)</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">11.190</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Polynomial (degree 5)</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">163.204</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Ridge Regression</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">0.042</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Support Vector Regression (SVR)</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">371.238</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">AdaBoost</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">3.262</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">CatBoost</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">5.212</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Gradient Boosting</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">14.015</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">LightGBM</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">0.261</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Random Forest</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">65.492</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">XGBoost</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">0.257</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>
+            Another important aspect of model evaluation is the time required for computation. Machine learning models often require significant computational resources, which can increase costs and negatively impact the environment. The training times for various models are summarized in the table above.
+        </p>
+        <ul>
+            <li><strong>Ridge Regression:</strong> 
+                Requires the least time to train, at only 0.042 seconds. This makes it highly efficient and suitable for quick training needs.
+            </li>
+            <li><strong>Polynomial Regression:</strong> 
+                Training time increases with the degree. The polynomial regression model with degree 5 took an inordinately large time period (163.204 seconds) to train, further supporting the idea that higher-degree polynomial models should be avoided.
+            </li>
+            <li><strong>Support Vector Regression (SVR):</strong> 
+                Requires the longest training time, at 371.238 seconds. This is due to the kernel transformations and optimization required to fit the hyperplane. Despite its decent performance, its computational cost makes it less favorable compared to simpler models like Ridge Regression.
+            </li>
+            <li><strong>Decision Tree and Random Forest:</strong> 
+                The decision tree model took approximately 1 second to train, while the random forest model required over 65 seconds due to the ensemble nature of the algorithm.
+            </li>
+            <li><strong>Boosting Approaches:</strong> 
+                Boosting algorithms exhibit variance in training time depending on the variant:
+                <ul>
+                    <li><strong>LightGBM:</strong> The fastest, requiring only 0.261 seconds.</li>
+                    <li><strong>Gradient Boosting:</strong> The slowest among boosting methods, taking 14.015 seconds.</li>
+                    <li><strong>CatBoost:</strong> The best-performing model in terms of RMSE required 5.212 seconds for training, which is a reasonable trade-off considering its accuracy.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>To better understand the trade-offs between model performance and training time, we plotted the Root Mean Squared Error (RMSE) and training time for each model. Additionally, a bubble chart was created to visualize the relationship between training time, RMSE, and model complexity.</p>
+    
+        <h4>RMSE vs. Model</h4>
+        <p>The bar chart below represents the RMSE (log-transformed and normalized) for different models, allowing us to compare their performance visually. Lower RMSE values indicate better model performance.</p>
+        <div style="text-align: center;">
+            <img src="./Images/rmse.png" alt="RMSE vs Model" style="width: 600px; height: auto; border-radius: 8px;">
+            <p><em>Figure 1: Log-Transformed RMSE for Different Models</em></p>
+        </div>
+    
+        <h4>Training Time vs. Model</h4>
+        <p>The second bar chart highlights the training times (log-transformed and normalized) for each model. This visualization emphasizes the computational cost associated with training each model.</p>
+        <div style="text-align: center;">
+            <img src="./Images/time.png" alt="Training Time vs Model" style="width: 600px; height: auto; border-radius: 8px;">
+            <p><em>Figure 2: Log-Transformed Training Time for Different Models</em></p>
+        </div>
+    
+        <h4>Bubble Chart: Training Time vs. RMSE with Complexity</h4>
+        <p>
+            The bubble chart below provides a combined view of training time, RMSE, and model complexity. Here:
+        </p>
+        <ul>
+            <li>The <strong>x-axis</strong> represents the training time (normalized and log-transformed).</li>
+            <li>The <strong>y-axis</strong> represents the RMSE (normalized and log-transformed).</li>
+            <li>The <strong>bubble size</strong> indicates model complexity, which is a weighted combination of RMSE (70%) and training time (30%).</li>
+        </ul>
+        <p>This chart effectively shows the trade-offs between model accuracy, training cost, and complexity, helping identify the best-performing models in terms of both accuracy and efficiency.</p>
+        <div style="text-align: center;">
+            <img src="./Images/bubble.png" alt="Bubble Chart: Training Time vs RMSE" style="width: 600px; height: auto; border-radius: 8px;">
+            <p><em>Figure 3: Bubble Chart: Training Time vs RMSE with Complexity</em></p>
+        </div>
+
+        <h2>Residual Plots</h2>
+        <p>Below are the residual plots for each model, providing insights into the distribution of residuals (prediction errors) and their relationship with predicted values:</p>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <div style="text-align: center;">
+                <img src="./residual_plots/Ridge_residuals.png" alt="Ridge Regression Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Ridge Regression</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/Polynomial_2_residuals.png" alt="Polynomial Degree 2 Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Polynomial (Degree 2)</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/Polynomial_3_residuals.png" alt="Polynomial Degree 3 Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Polynomial (Degree 3)</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/Polynomial_4_residuals.png" alt="Polynomial Degree 4 Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Polynomial (Degree 4)</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/Decision_Tree_residuals.png" alt="Decision Tree Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Decision Tree</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/Random_Forest_residuals.png" alt="Random Forest Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>Random Forest</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/XGBoost_residuals.png" alt="XGBoost Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>XGBoost</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/LightGBM_residuals.png" alt="LightGBM Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>LightGBM</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/CatBoost_residuals.png" alt="CatBoost Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>CatBoost</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="./residual_plots/AdaBoost_residuals.png" alt="AdaBoost Residuals" style="width: 250px; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+                <p>AdaBoost</p>
+            </div>
+        </div>
+
+        <h3>Residual Plot Analysis</h3>
+        <p>Residual plots visualize the differences between predicted and actual values, helping us assess model performance. Below are insights from the residual plots:</p>
+        <ul>
+            <li><strong>Ridge Regression:</strong> Residuals show moderate spread and little deviation from zero, indicating a moderate fit</li>
+            <li><strong>Polynomial Regression (Degree 2-4):</strong> Degree 3 aligns better with the zero line, suggesting a good fit. Higher degrees (e.g., Degree 4) lead to overfitting, as evident from residual variance.</li>
+            <li><strong>Decision Tree:</strong> Patterns of heteroscedasticity suggest overfitting due to the model’s ability to perfectly split data.</li>
+            <li><strong>Random Forest:</strong> Residuals are more generalized and well-distributed along zero, showing improved performance compared to Decision Tree.</li>
+            <li><strong>Boosting Algorithms (XGBoost, LightGBM, CatBoost):</strong> These models show tightly concentrated residuals, reflecting their effectiveness in capturing complex patterns and reducing errors.</li>
+            <li><strong>AdaBoost:</strong> Residuals show slightly higher variance compared to other boosting methods, but the model still performs reasonably well.</li>
+        </ul>
+        <p>Overall, boosting algorithms like CatBoost and XGBoost exhibit the best performance, while ridge regression, polynomial regression (Degree 3) and Random Forest also provide strong results.</p>
+        
+    </div>
+    
+    <div class="section">
+        <h2>Conclusion and Learnings</h2>
+        <h3>Conclusion</h3>
+        <p>
+            In this project, we aimed to predict the Estimated Time of Arrival (ETA) for DoorDash deliveries using various regression models. Our experiments involved extensive data preprocessing, feature engineering, outlier removal using advanced techniques (GMM and K-Means), and model evaluation across multiple metrics.
+        </p>
+        <p>
+            The results highlighted the following key points:
+        </p>
+        <ul>
+            <li><strong>Boosting models:</strong> CatBoost emerged as the best-performing model with the lowest RMSE of 11.170 minutes, closely followed by XGBoost and LightGBM.</li>
+            <li><strong>Ridge Regression:</strong> Despite being a simple approach, Ridge Regression achieved competitive results with an RMSE of 12.279 minutes and the shortest training time of only 0.042 seconds.</li>
+            <li><strong>Random Forest:</strong> Random Forest regression performed significantly better than the Decision Tree model, achieving an RMSE of 11.630 minutes.</li>
+            <li><strong>Polynomial Regression:</strong> While Polynomial Regression (degree 3) showed good performance, higher-degree polynomials (e.g., degree 5) drastically reduced accuracy and increased computational cost.</li>
+            <li><strong>Support Vector Regression:</strong> SVR achieved modest accuracy but required the longest training time, making it less practical for real-world deployment.</li>
+        </ul>
+        <p>
+            The analysis of training time and RMSE further emphasized the trade-offs between accuracy, interpretability, and computational efficiency. Boosting methods were effective but required careful hyperparameter tuning, while Ridge Regression and LightGBM offered excellent trade-offs between performance and speed.
+        </p>
+    
+        <h3>Learnings</h3>
+        <p>
+            This project provided several valuable insights into building and evaluating regression models for real-world applications:
+        </p>
+        <ul>
+            <li><strong>Preprocessing is critical:</strong> Advanced preprocessing techniques, including Gaussian Mixture Models (GMM) and K-Means, significantly improved the quality of the dataset, leading to better model performance.</li>
+            <li><strong>Model selection depends on use case:</strong> While CatBoost and XGBoost offered the best performance, Ridge Regression proved ideal for scenarios requiring faster training and low computational cost.</li>
+            <li><strong>Polynomial Regression limitations:</strong> Higher-degree polynomial regression models introduced overfitting and were computationally expensive. Exploring alternatives like spline regression could address these issues in future work.</li>
+            <li><strong>Visualization is key:</strong> Visual tools like bar charts and bubble charts helped analyze the trade-offs between accuracy, training time, and model complexity, providing actionable insights into model selection.</li>
+            <li><strong>PCA is not always effective:</strong> Dimensionality reduction using PCA does not always yield better results. In this project, PCA led to a loss of important variance, negatively affecting model performance. It is important to evaluate the necessity of PCA based on dataset characteristics.</li>
+
+        </ul>
+        <p>
+            In conclusion, this project demonstrated the power of machine learning in predicting delivery times, with boosting methods like CatBoost emerging as the most effective. Future work could involve testing additional preprocessing techniques, exploring alternative regression methods, and optimizing hyperparameters further to enhance both performance and efficiency.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>Future Work</h3>
+        <p>
+            While this project demonstrated the effectiveness of machine learning models in predicting ETAs, there are several areas for future exploration:
+        </p>
+        <ul>
+            <li><strong>Advanced preprocessing techniques:</strong> Incorporating additional preprocessing methods, such as handling categorical variables using advanced encodings or imputation strategies for missing data, could further enhance the dataset quality.</li>
+            <li><strong>Spline regression:</strong> Exploring polynomial splines or other advanced regression methods may help model non-linear relationships without overfitting, addressing the limitations of higher-degree polynomial regression.</li>
+            <li><strong>Deep learning models:</strong> Investigating deep learning approaches like Fully Connected Neural Networks (FCNN) or Transformer-based models could improve performance on larger, more complex datasets.</li>
+            <li><strong>Hyperparameter tuning:</strong> Further optimization of hyperparameters using grid search or Bayesian optimization could unlock better performance for boosting and ensemble models.</li>
+        </ul>
+        <p>
+            By addressing these areas, the performance and practicality of ETA prediction systems can be further improved, paving the way for more efficient delivery systems and enhanced customer satisfaction.
+        </p>
+    </div>
+    
+    
+
+    <!-- <div class="section">
+        <h2>Methods</h2>
+        <h3>Data Preprocessing Methods: [Uses Unsupervised Learning]</h3>
+        <ul>
+            <li><strong>Data Cleaning:</strong> General cleaning methods for dealing with missing data by imputation or removal of datapoints.</li>
+            <li><strong>K-Means Clustering and Gaussian Mixture Models:</strong> Used for outlier removal and feature engineering.</li>
+            <li><strong>Correlation Analysis and PCA:</strong> To remove unimportant features and reduce dimensionality.</li>
+            <li><strong>One-Hot Encoding or Label Encoding:</strong> To handle categorical variables such as market regions and restaurant cuisines.</li>
+        </ul>
+        <h3>Proposed Regression Models: [Uses Supervised Learning]</h3>
+        <ul>
+            <li>Ridge Regression</li>
+            <li>Polynomial Regression</li>
+            <li>Support Vector Regression</li>
+            <li>Decision Tree and Random Forest Regression</li>
+            <li>Boosting Regression: Gradient, AdaBoost, XGBoost</li>
+            <li>Ensemble Models and Fully Connected Neural Networks</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Quantitative Metrics</h2>
+        <ul>
+            <li><strong>Mean Absolute Error (MAE):</strong> Measures the average magnitude of errors in predictions.</li>
+            <li><strong>Mean Squared Error (MSE):</strong> Gives more weight to larger errors.</li>
+            <li><strong>R-Squared (R²):</strong> Evaluates how well the model captures the variance in delivery time.</li>
+            <li><strong>Explained Variance Score:</strong> Measures how much variance in the target variable is explained by the model.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Project Goals</h2>
+        <p>The primary goal is to make accurate ETA predictions, contributing to operational efficiency by optimizing delivery routes and schedules. Our aim is to get low values on MAE, MSE and high values for R-squared and explained variance score. It is important to ensure fairness across regions and stores, reducing potential bias in ETA predictions.</p>
+    </div>
+
+    <div class="section">
+        <h2>Expected Outcomes</h2>
+        <p>We expect the models to demonstrate solid performance across the chosen metrics, enabling better customer satisfaction and operational optimization. By using proposed regression techniques and clustering for feature engineering, we anticipate achieving robust generalization and providing insights for enhancing the delivery process.</p>
+    </div>
+
+    <div class="section">
+        <h2>Analysis</h2>
+        <p>The dataset preprocessing involved multiple steps to ensure quality and readiness for modeling. First, null values were removed, followed by percentile-based outlier removal, which eliminated 21,682 records. Missing data was then imputed, both manually and using K-Nearest Neighbors. KNN imputed the number of dashers based on hour, day, and region of the store. Categorical features were one-hot encoded for compatibility in numerical models.</p>
+        
+        <p>Next, the data was scaled to normalize feature ranges. A Gaussian Mixture Model was applied to detect additional complex outliers, removing 1,969 records. Finally, Principal Component Analysis reduced dimensionality, extracting the top three components to streamline the dataset while preserving variance for effective modeling.</p>
+
+        <p>Linear regression was used to predict the ETAs. The train MSE was 21,510.33, which was high, especially compared to the average target value of 2,908.90. This suggested that the model's predictions deviated substantially from the actual values, indicating poor fit and significant prediction errors on the training set. The test MSE was 1,046.45, much lower than the train MSE. This could have implied several things:</p>
+        <ul>
+            <li><strong>Underfitting:</strong> The model fails to capture the complexity in the training data.</li>
+            <li><strong>Data Variability:</strong> The training set may contain more variance than the test set.</li>
+            <li><strong>Over-regularization:</strong> With a high regularization parameter, the model may be too constrained.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Visualization</h2>
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="margin: 10px; text-align: center;">
+                <img src="ll-score.png" style="width: 300px; height: auto; border-radius: 8px;">
+            </div>
+            <div style="margin: 10px; text-align: center;">
+                <img src="variance-elbow.png" style="width: 300px; height: auto; border-radius: 8px;">
+            </div>
+            <div style="margin: 10px; text-align: center;">
+                <img src="variance-ratio.png" style="width: 300px; height: auto; border-radius: 8px;">
+            </div>
+            <div style="margin: 10px; text-align: center;">
+                <img src="pca-projection.png" style="width: 300px; height: auto; border-radius: 8px;">
+            </div>
+            <div style="margin: 10px; text-align: center;">
+                <img src="linear-regression.png" style="width: 300px; height: auto; border-radius: 8px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Future Work</h2>
+        <p>We plan to explore additional preprocessing techniques and regression models to improve the ETA prediction accuracy. We will investigate alternative methods for dimensionality reduction if it is needed, as well as explore alternative encoding techniques. For regression, we aim to test models the other models alongside boosting algorithms. These approaches, along with further hyperparameter tuning, could enhance model performance and offer more accurate predictions.</p>
+    </div> -->
+
+    <div class="section">
+        <h2>References</h2>
+        <ol>
+            <li>A Survey on Service Route and Time Prediction in Instant Delivery: Taxonomy, Progress, and Prospects, Haomin Wen and Youfang Lin and Lixia Wu and Xiaowei Mao and Tianyue Cai and Yunfeng Hou and Shengnan Guo and Yuxuan Liang and Guangyin Jin and Yiji Zhao and Roger Zimmermann and Jieping Ye and Huaiyu Wan, Arxiv pre-print, 2023. <a target="_blank" =https://arxiv.org/abs/2309.01194>Paper link.</a></li>
+            <li>Boosting Algorithms for Delivery Time Prediction in Transportation Logistics, Khiari, Jihed and Olaverri-Monreal, Cristina, 2020 International Conference on Data Mining Workshops (ICDMW), 2020. <a target="_blank" href=https://arxiv.org/pdf/2009.11598>Paper link.</a></li></li>
+            <li>ETA Prediction with Graph Neural Networks in Google Maps, Proceedings of the 30th ACM International Conference on Information &amp; Knowledge Management, 2021. <a target="_blank" href=https://arxiv.org/abs/2108.11482>Paper link.</a></li></li>
+            <li>End-to-End Prediction of Parcel Delivery Time with Deep Learning for Smart-City Applications, Arthur Cruz de Araujo and Ali Etemad, Arxiv pre-print, 2021. <a target="_blank" href=https://arxiv.org/pdf/2009.12197>Paper link.</a></li></li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Contribution Table</h2>
+        <table style="width: 100%; margin: 20px auto; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Name</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #3498db; color: #fff;">Proposal Contributions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Chathurvedhi Talapaneni</td><td style="border: 1px solid #ddd; padding: 8px;">Methods: Data processing and ML algorithms. Data preprocessing  and unsupervised learning.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Om Khare</td><td style="border: 1px solid #ddd; padding: 8px;">Results and metrics. Creating Github Page. Data preprocessing and unsupervised learning.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Sai Gokhale</td><td style="border: 1px solid #ddd; padding: 8px;">Gantt Chart, video preparation, idea proposal. Supervised learning and visualizations.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Swebert Correa</td><td style="border: 1px solid #ddd; padding: 8px;">Introduction and problem definition. Quantitative metrics and model analysis. Handled website updates.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Tanmay Chavan</td><td style="border: 1px solid #ddd; padding: 8px;">Related Work Survey and dataset. Supervised learning and visualizations.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Gantt chart</h2>
+        
+        <div style="margin: 10px; text-align: center;">
+            <img src="./Images/Gantt.png" alt="Gantt" style="width: 600px; height: auto; border-radius: 8px;">
+
+            <p>
+                <a target="_blank" href="https://docs.google.com/spreadsheets/d/1emPn-WK9Lb2PYTF7AlpaTFkeK1DcSnlu9eYLugA8sK8/edit?gid=401349256#gid=401349256">Google Excel Sheet for Gantt Chart</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
