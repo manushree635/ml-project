@@ -114,6 +114,35 @@
                 font-size: 2em;
             }
         }
+
+        .contribution-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .contribution-table th, .contribution-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .contribution-table th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .contribution-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .contribution-table tr:hover {
+            background-color: #f1f4f6;
+        }
     </style>
 </head>
 <body>
@@ -222,6 +251,68 @@
             <li>Classify mood based on social media usage</li>
             <li>Show correlation between social media usage and mood</li>
         </ul>
+    </div>
+
+    <div class="section">
+        <h2>Team Contributions</h2>
+        <table class="contribution-table">
+            <thead>
+                <tr>
+                    <th>Team Member</th>
+                    <th>Contributions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alex</td>
+                    <td>
+                        <ul>
+                            <li>Introduction & Background</li>
+                            <li>Problem Definition</li>
+                            <li>Methods</li>
+                            <li>Potential Results & Discussion</li>
+                            <li>Dataset Analysis</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vineeth</td>
+                    <td>
+                        <ul>
+                            <li>Problem Definition</li>
+                            <li>Dataset Analysis</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Austin</td>
+                    <td>
+                        <ul>
+                            <li>Methods</li>
+                            <li>Video Creation & Recording</li>
+                            <li>Dataset Analysis</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Manushree</td>
+                    <td>
+                        <ul>
+                            <li>GitHub Page Development</li>
+                            <li>Dataset Analysis</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tanmay</td>
+                    <td>
+                        <ul>
+                            <li>Dataset Analysis</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="section">
