@@ -254,6 +254,32 @@
     </div>
 
     <div class="section">
+        <h2>Method</h2>
+        <h3>Data Processing Methods:</h3>
+        add here
+    
+        <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
+        <ul>
+            <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
+            <li><strong>Hyperparameters:</strong>
+                <ul>
+                    <li><code>n_estimators=50</code>: Number of decision trees. This is the number of trees in the forest.</li>
+                    <li><code>max_samples=0.5</code>: 50% of training data per estimator. This is the number of samples to draw from the training data.</li>
+                    <li><code>max_features=0.5</code>: 50% of features per estimator. This is the number of features to consider when looking for the best split.</li>
+                    <li><code>bootstrap=True</code>: Enables bootstrapping. Bootstrap is a technique where the data sample is drawn with replacement.</li>
+                    <li><code>oob_score=True</code>: Uses out-of-bag samples for accuracy estimation. Out-of-bag samples are the samples that are not used to train the model.</li>
+                </ul>
+            </li>
+            <li><strong>Hyperparameter Search:</strong> Conducted grid search to optimize parameters for the bagging model. The parameters we tuned were 'n_estimators': [10, 50, 100],
+                'max_samples': [0.5, 0.7, 1.0],
+                'max_features': [0.5, 0.7, 1.0],
+                'bootstrap': [True, False],
+                'bootstrap_features': [True, False].</li>
+        </ul>
+    
+            </div>
+
+    <div class="section">
         <h2>References</h2>
         <ol>
             <li>L. yi Lin et al., "Association between Social Media Use and Depression among US Young Adults," Depression and Anxiety, vol. 33, no. 4, pp. 323–331, Jan. 2016, doi: <a href="https://doi.org/10.1002/da.22466" target="_blank">https://doi.org/10.1002/da.22466</a></li>
