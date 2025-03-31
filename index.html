@@ -255,9 +255,17 @@
 
     <div class="section">
         <h2>Method</h2>
+
         <h3>Data Processing Methods:</h3>
         add here
-    
+
+
+        <h3> Dataset Split</h3>
+        <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
+        We train our model on the train set and test it on the test set.
+        </p>
+
+        
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
@@ -270,15 +278,79 @@
                     <li><code>oob_score=True</code>: Uses out-of-bag samples for accuracy estimation. Out-of-bag samples are the samples that are not used to train the model.</li>
                 </ul>
             </li>
-            <li><strong>Hyperparameter Search:</strong> Conducted grid search to optimize parameters for the bagging model. The parameters we tuned were 'n_estimators': [10, 50, 100],
-                'max_samples': [0.5, 0.7, 1.0],
-                'max_features': [0.5, 0.7, 1.0],
-                'bootstrap': [True, False],
-                'bootstrap_features': [True, False].</li>
+            <li><strong>Hyperparameter Search:</strong> Conducted grid search to optimize parameters for the bagging model. The parameters we tuned were:
+                <ul>
+                    <li><code>n_estimators: [10, 50, 100]</code></li>
+                    <li><code>max_samples: [0.5, 0.7, 1.0]</code></li>
+                    <li><code>max_features: [0.5, 0.7, 1.0]</code></li>
+                    <li><code>bootstrap: [True, False]</code></li>
+                    <li><code>bootstrap_features: [True, False]</code></li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Evaluation Metrics</h3>
+        <ul>
+            <li><strong>Accuracy:</strong> The percentage of correctly classified data points.</li>
+            <li><strong>Precision:</strong> The percentage of true positives that were correctly classified.</li>
+            <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
+            <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
     
             </div>
 
+    <div class="section">
+        <h2>Results</h2>
+        We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Bagging Model</th>
+                    <th>Bagging Model with PCA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.96</td>
+                    <td>0.43</td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.95</td>
+                    <td>0.42</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.96</td>
+                    <td>0.42</td>
+                </tr>
+                <tr>
+                    <td>F1-score</td>
+                    <td>0.96</td>
+                    <td>0.42</td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+        <h3>Visualizations</h3>
+        <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
+        <img src="confusion_matrix.png" alt="Confusion Matrix of Bagging Model">
+        <img src="confusion_matrix_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+
+        <h3>Discussion</h3>
+        <ul>
+            <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
+            <li>We see that the bagging mod el with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
+        </ul>
+
+
+        
+        
+    </div>
     <div class="section">
         <h2>References</h2>
         <ol>
