@@ -183,62 +183,6 @@
     </div>
 
     <div class="section">
-        <h2>Methods</h2>
-        <h3>Preprocessing Methods:</h3>
-        <ul>
-            <li><strong>Dimensionality Reduction:</strong>
-                <ul>
-                    <li>Dataset has 10 features for every row (user)</li>
-                    <li>To conduct data analysis, we need to remove features that aren't necessarily essential for all users</li>
-                </ul>
-            </li>
-            <li><strong>Data Cleaning:</strong>
-                <ul>
-                    <li>Data for the most part is great, but outliers might exist</li>
-                    <li>Want to remove outliers so it doesn't affect results of future testing and our project, overall</li>
-                </ul>
-            </li>
-            <li><strong>Imbalance Data:</strong>
-                <ul>
-                    <li>Quick look shows imbalance of features like gender (45% male to 29% non-binary)</li>
-                    <li>Must use techniques like resampling or assigning weights to deal with potential issues in classification</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h3>ML Methods:</h3>
-        <ul>
-            <li><strong>K-Nearest Neighbors:</strong>
-                <ul>
-                    <li>Like K-Means, we want to use feature classification</li>
-                    <li>However, we can make use of the training data to see if we have a higher accuracy in mapping similar data points to each other</li>
-                </ul>
-            </li>
-            <li><strong>K-Means:</strong>
-                <ul>
-                    <li>We plan to solve this problem using feature classification</li>
-                    <li>Allows us to use multi-class classification to see what data points are closely related to each other</li>
-                </ul>
-            </li>
-            <li><strong>Logistic Regression:</strong>
-                <ul>
-                    <li>We want to see what values of our features need to be around to see if they belong to a specific emotion (e.g. Anxiety)</li>
-                    <li>Logistic Regression can help because we can calculate the probability a datapoint belongs to a specific emotion or perhaps even an outlier</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>Quantitative Metrics</h2>
-        <ul>
-            <li><strong>Precision:</strong> To improve our accuracy this will be a useful metric to help figure out if we are misclassifying true positives</li>
-            <li><strong>Accuracy:</strong> Our aim is for the model to be at least 95% accurate. After working with the data more we may aim for higher/lower</li>
-            <li><strong>F1-score:</strong> This will also help improve accuracy and give additional insight into how we are misclassifying information</li>
-        </ul>
-    </div>
-
-    <div class="section">
         <h2>Goals & Expected Results</h2>
         <h3>Expected results:</h3>
         <ul>
@@ -257,7 +201,21 @@
         <h2>Method</h2>
 
         <h3>Data Processing Methods:</h3>
-        add here
+        <p>An important first step was cleaning our dataset to ensure consistency. We:
+        </p>
+        <ul>
+            <li>Fixed misaligned columns</li>
+            <li>Removed empty rows</li>
+            <li>Removed duplicate entries</li>
+            <li>Filled missing values in numerical columns with the mean</li>
+            <li>Verified that categorical data matched predefined categories and removed incorrect values 
+                (for example we removed the entry with "Marie" in the Gender column, where the valid categories are "Male," "Female," and "Non-binary").
+            </li>
+        </ul>
+        <p>
+            An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems. 
+            <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
+        </p>
 
 
         <h3> Dataset Split</h3>
