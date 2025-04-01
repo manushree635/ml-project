@@ -234,7 +234,8 @@
         </div>
 
         <h3> Feature Reduction </h3>
-        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
+        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, 
+            we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
 
         <ul>
             <li>Finding the number of principal components (n) to keep, so that they keep at least 95% of the total variance</li>
@@ -244,17 +245,20 @@
         </ul>
 
         <p>
-            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
+            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. 
+            This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
             <div style="text-align: center;">
                 <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
             </div>
             
         </p>
         <p>
-            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
+            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. 
+            This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
         </p>
 
-        
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- 1. Bagging Classifier -->
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
@@ -285,8 +289,44 @@
             <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
             <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
-    
-            </div>
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- Random Forrest.. -->
+        <h3>Random Forest Classifier Implementation</h3>
+        <ul>
+            <li><strong>Random Forest Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as base estimator</li>
+            <li><strong>Core Hyperparameters:</strong>
+                <ul>
+                    <li><code>n_estimators=50</code>: Number of decision trees in the ensemble</li>
+                    <li><code>max_samples=0.5</code>: 50% subsampling of training data per tree</li>
+                    <li><code>max_features=0.5</code>: 50% feature subset for split optimization</li>
+                    <li><code>bootstrap=True</code>: Dataset sampling with replacement</li>
+                    <li><code>oob_score=True</code>: Out-of-bag error estimation enabled</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Hyperparameter Optimization</h4>
+        <ul>
+            <li><strong>Grid Search Configuration:</strong>
+                <ul>
+                    <li><code>n_estimators</code>: [10, 50, 100] tree counts</li>
+                    <li><code>max_samples</code>: [0.5, 0.7, 1.0] data fraction</li>
+                    <li><code>max_features</code>: [0.5, 0.7, 1.0] feature subsets</li>
+                    <li><code>bootstrap</code>: [True, False] sampling methods</li>
+                    <li><code>bootstrap_features</code>: [True, False] feature randomization</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Model Evaluation Metrics</h4>
+        <ul class="metrics">
+            <li><strong>Accuracy:</strong> Overall prediction correctness ratio</li>
+            <li><strong>Precision:</strong> True positive detection accuracy</li>
+            <li><strong>Recall:</strong> Positive class identification completeness</li>
+            <li><strong>F1-Score:</strong> Precision-Recall harmonic balance</li>
+        </ul>
+
+    </div>
 
     <div class="section">
         <h2>Results</h2>
