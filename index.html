@@ -214,7 +214,9 @@
         </ul>
         <p>
             An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems. 
-            <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
+            <div style="text-align: center;">
+                <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
+            </div>
         </p>
 
 
@@ -235,7 +237,10 @@
 
         <p>
             Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
-            <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
+            <div style="text-align: center;">
+                <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
+            </div>
+            
         </p>
         <p>
             However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
