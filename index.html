@@ -224,18 +224,9 @@
         <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
         We train our model on the train set and test it on the test set.
         </p>
-        <p>Below are some visualations comparing what the test and training sets look like against each other</p>
-        <div style="text-align: center;">
-            <img src="./pie.png" alt="Pie Chart" style="width: 100%; max-width: 600px; height: auto;">
-            <img src="./emotions_v_comments.png" alt="Emotions vs Comments" style="width: 100%; max-width: 600px; height: auto;">
-            <img src="./emotions_v_likes.png" alt="Emotions vs Likes" style="width: 100%; max-width: 600px; height: auto;">
-            <img src="./emotions_v_messages_sent.png" alt="Emotions vs Messages Sent" style="width: 100%; max-width: 600px; height: auto;">
-            <img src="./emotions_v_use time.png" alt="Emotions vs Use Time" style="width: 100%; max-width: 600px; height: auto;">
-        </div>
 
         <h3> Feature Reduction </h3>
-        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, 
-            we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
+        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
 
         <ul>
             <li>Finding the number of principal components (n) to keep, so that they keep at least 95% of the total variance</li>
@@ -245,20 +236,17 @@
         </ul>
 
         <p>
-            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. 
-            This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
+            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
             <div style="text-align: center;">
                 <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
             </div>
             
         </p>
         <p>
-            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. 
-            This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
+            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
         </p>
 
-        <!-- Adding stuff about models and evaluation metrics... -->
-        <!-- 1. Bagging Classifier -->
+        
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
@@ -289,44 +277,8 @@
             <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
             <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
-        <!-- Adding stuff about models and evaluation metrics... -->
-        <!-- Random Forrest.. -->
-        <h3>Random Forest Classifier Implementation</h3>
-        <ul>
-            <li><strong>Random Forest Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as base estimator</li>
-            <li><strong>Core Hyperparameters:</strong>
-                <ul>
-                    <li><code>n_estimators=50</code>: Number of decision trees in the ensemble</li>
-                    <li><code>max_samples=0.5</code>: 50% subsampling of training data per tree</li>
-                    <li><code>max_features=0.5</code>: 50% feature subset for split optimization</li>
-                    <li><code>bootstrap=True</code>: Dataset sampling with replacement</li>
-                    <li><code>oob_score=True</code>: Out-of-bag error estimation enabled</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>Hyperparameter Optimization</h4>
-        <ul>
-            <li><strong>Grid Search Configuration:</strong>
-                <ul>
-                    <li><code>n_estimators</code>: [10, 50, 100] tree counts</li>
-                    <li><code>max_samples</code>: [0.5, 0.7, 1.0] data fraction</li>
-                    <li><code>max_features</code>: [0.5, 0.7, 1.0] feature subsets</li>
-                    <li><code>bootstrap</code>: [True, False] sampling methods</li>
-                    <li><code>bootstrap_features</code>: [True, False] feature randomization</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>Model Evaluation Metrics</h4>
-        <ul class="metrics">
-            <li><strong>Accuracy:</strong> Overall prediction correctness ratio</li>
-            <li><strong>Precision:</strong> True positive detection accuracy</li>
-            <li><strong>Recall:</strong> Positive class identification completeness</li>
-            <li><strong>F1-Score:</strong> Precision-Recall harmonic balance</li>
-        </ul>
-
-    </div>
+    
+            </div>
 
     <div class="section">
         <h2>Results</h2>
@@ -373,13 +325,25 @@
         <h3>Discussion</h3>
         <ul>
             <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
-            <li>We see that the bagging mod el with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
+            <li>We see that the bagging model with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
         </ul>
 
 
         
         
     </div>
+
+    <div class="section">
+        <h2>Next Steps</h2>
+        <p>This list is a couple of ideas for what our group could possibly do between now and the final presentation:</p>
+            <ul>
+                <li>Consider using more advanced ensemble methods such as boosting or stacking.</li>
+                <li>Explore additional feature selection or transformations that might improve model performance.</li>
+                <li>Combine multiple models to create a more robust ensemble, potentially improving accuracy and generalization.</li>
+                <li>Research into feature reduction techniques that don't affect our models' accuracy too much, unlike PCA.</li>
+            </ul>
+    </div>
+
     <div class="section">
         <h2>References</h2>
         <ol>
