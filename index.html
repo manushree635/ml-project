@@ -4,146 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media and Mental Health Analysis</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: #3498db;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        h3 {
-            color: #2c3e50;
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-
-        ul {
-            margin-left: 20px;
-            text-align: left;
-            list-style-type: none;
-        }
-
-        ul li {
-            margin: 10px 0;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        ul li:before {
-            content: "•";
-            color: #3498db;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .section {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 800px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #2980b9;
-            text-decoration: underline;
-        }
-
-        ol {
-            padding-left: 20px;
-        }
-
-        ol li {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(52, 152, 219, 0.05);
-            border-radius: 8px;
-        }
-
-        strong {
-            color: #2980b9;
-        }
-
-        .header-subtitle {
-            color: #7f8c8d;
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .section {
-                margin: 20px 10px;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-        }
-
-        .contribution-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .contribution-table th, .contribution-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .contribution-table th {
-            background-color: #3498db;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .contribution-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        .contribution-table tr:hover {
-            background-color: #f1f4f6;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -246,8 +107,15 @@
             However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
         </p>
 
+<<<<<<< HEAD
         
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
+=======
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- 1. Bagging Classifier -->
+        <h2>Machine Learning Algorithm 1 (Supervised Learning):</h2>
+        <h3>1. Bagging Classifier Implementation</h3>
+>>>>>>> 0c7c0fa (adding RF info and making it prettier)
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
             <li><strong>Hyperparameters:</strong>
@@ -277,11 +145,48 @@
             <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
             <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
+<<<<<<< HEAD
     
             </div>
+=======
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- Random Forrest.. -->
+        <h3>2. Random Forest Classifier Implementation</h3>
+    
+        <div class="implementation-details">
+            <h4>Model Configuration</h4>
+            <ul>
+                <li><strong>Classifier:</strong> <code>RandomForestClassifier</code></li>
+                <li><strong>Random State:</strong> 1</li>
+                <li><strong>Best Parameters Found:</strong>
+                    <ul>
+                        <li><code>max_depth</code>: None</li>
+                        <li><code>max_features</code>: sqrt</li>
+                        <li><code>min_samples_leaf</code>: 1</li>
+                        <li><code>min_samples_split</code>: 2</li>
+                        <li><code>n_estimators</code>: 200</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="hyperparameters">
+            <h4>Grid Search Parameters</h4>
+            <table>
+                <tr><th>Parameter</th><th>Values Tested</th></tr>
+                <tr><td>n_estimators</td><td>[100, 200, 300]</td></tr>
+                <tr><td>max_depth</td><td>[None, 10, 20, 30]</td></tr>
+                <tr><td>min_samples_split</td><td>[2, 5, 10]</td></tr>
+                <tr><td>min_samples_leaf</td><td>[1, 2, 4]</td></tr>
+                <tr><td>max_features</td><td>['sqrt', 'log2']</td></tr>
+            </table>
+        </div>
+    </div>
+>>>>>>> 0c7c0fa (adding RF info and making it prettier)
 
     <div class="section">
         <h2>Results</h2>
+        <h3>1. Bagging Classifier: </h3>
         We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
 
         <table>
@@ -320,7 +225,7 @@
         <h3>Visualizations</h3>
         <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
         <img src="./confusion_matrix_bagging.png" alt="Confusion Matrix of Bagging Model">
-        <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+        <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model without PCA">
 
         <h3>Discussion</h3>
         <ul>
@@ -328,6 +233,62 @@
             <li>We see that the bagging model with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
         </ul>
 
+        <!-- Random Forrest CLassifier.... -->
+        <h3>2. Random Forrest Classifier: </h3>
+        We evaluate our model on the test set and get the following results in the table below for the Random Forrest model with and without pca:
+
+        <table class="metrics-table">
+        <thead>
+            <tr>
+                <th style="width: 25%">Metric</th>
+                <th style="width: 37.5%">Random Forest Model</th>
+                <th style="width: 37.5%">Random Forest Model with PCA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Accuracy</td>
+                <td class="metric-value">0.958</td>
+                <td class="metric-value metric-warning">0.440</td>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.420</td>
+            </tr>
+            <tr>
+                <td>Recall</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.430</td>
+            </tr>
+            <tr>
+                <td>F1-score</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.430</td>
+            </tr>
+        </tbody>
+    </table>
+        
+        <h3>Classification Report</h3>
+        <table class="classification-report">
+            <tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>Support</th></tr>
+            <tr><td>0.0</td><td>0.93</td><td>1.00</td><td>0.97</td><td>14</td></tr>
+            <tr><td>1.0</td><td>0.90</td><td>1.00</td><td>0.95</td><td>9</td></tr>
+            <tr><td>2.0</td><td>1.00</td><td>1.00</td><td>1.00</td><td>25</td></tr>
+            <tr><td>3.0</td><td>1.00</td><td>0.95</td><td>0.97</td><td>20</td></tr>
+            <tr><td>4.0</td><td>0.93</td><td>0.93</td><td>0.93</td><td>15</td></tr>
+            <tr><td>5.0</td><td>0.92</td><td>0.86</td><td>0.89</td><td>14</td></tr>
+        </table>
+
+        <h3>Visualizations</h3>
+        <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
+        <img src="./rf_confusion_matrix_sans_PCA.png" alt="Confusion Matrix of Random Forrest Model without PCA">
+        <!-- <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model without PCA"> -->
+
+        <h3>Discussion</h3>
+        <ul>
+            <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
+        </ul>
 
         
         
