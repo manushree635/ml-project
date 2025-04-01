@@ -223,6 +223,24 @@
         We train our model on the train set and test it on the test set.
         </p>
 
+        <h3> Feature Reduction </h3>
+        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
+
+        <ul>
+            <li>Finding the number of principal components (n) to keep, so that they keep at least 95% of the total variance</li>
+            <li>Reducing both the training and testing datasets to have n principal components to serve as features and combining it with the y column 'Dominant_Emotion'</li>
+            <li>Analyzing how our PCA feature reduction does on a couple of models</li>
+
+        </ul>
+
+        <p>
+            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
+            <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
+        </p>
+        <p>
+            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
+        </p>
+
         
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
