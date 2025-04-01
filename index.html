@@ -191,18 +191,39 @@
             An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems. 
             <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
         </p>
+        <h3>Feature Reduction</h3>
+        <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
+
+        <ul>
+            <li>Finding the number of principal components (n) to keep, so that they keep at least 95% of the total variance</li>
+            <li>Reducing both the training and testing datasets to have n principal components to serve as features and combining it with the y column 'Dominant_Emotion'</li>
+            <li>Analyzing how our PCA feature reduction does on a couple of models</li>
+
+        </ul>
+
+        <p>
+            Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
+            <div style="text-align: center;">
+                <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
+            </div>
+
+        </p>
+        <p>
+            However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
+        </p>
         <h3> Dataset Split</h3>
         <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
         We train our model on the train set and test it on the test set.
         </p>
-        <p>Below are some visualations comparing what the test and training sets look like against each other</p>
-        <img src="./pie.png" alt="Pie Chart" style="width: 100%; max-width: 600px; height: auto;">
-        <img src="./emotions_v_comments.png" alt="Emotions vs Comments" style="width: 100%; max-width: 600px; height: auto;">
-        <img src="./emotions_v_likes.png" alt="Emotions vs Likes" style="width: 100%; max-width: 600px; height: auto;">
-        <img src="./emotions_v_messages_sent.png" alt="Emotions vs Messages Sent" style="width: 100%; max-width: 600px; height: auto;">
-        <img src="./emotions_v_use time.png" alt="Emotions vs Use Time" style="width: 100%; max-width: 600px; height: auto;">
-
-
+        <p>Below are some visualizations comparing what the test and training sets look like against each other</p>
+        <div style="text-align: center;">
+            <img src="./pie.png" alt="Pie Chart" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
+            <img src="./emotions_v_comments.png" alt="Emotions vs Comments" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
+            <img src="./emotions_v_likes.png" alt="Emotions vs Likes" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
+            <img src="./emotions_v_messages_sent.png" alt="Emotions vs Messages Sent" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
+            <img src="./emotions_v_use time.png" alt="Emotions vs Use Time" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
+        </div>
+        
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
