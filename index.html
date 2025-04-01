@@ -4,133 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media and Mental Health Analysis</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            text-align: center;
-            color: #2c3e50;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #3498db;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        h3 {
-            color: #2c3e50;
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-        ul {
-            margin-left: 20px;
-            text-align: left;
-            list-style-type: none;
-        }
-        ul li {
-            margin: 10px 0;
-            position: relative;
-            padding-left: 20px;
-        }
-        ul li:before {
-            content: "•";
-            color: #3498db;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-        .section {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 800px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            color: #2980b9;
-            text-decoration: underline;
-        }
-        ol {
-            padding-left: 20px;
-        }
-        ol li {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(52, 152, 219, 0.05);
-            border-radius: 8px;
-        }
-        strong {
-            color: #2980b9;
-        }
-        .header-subtitle {
-            color: #7f8c8d;
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-        @media (max-width: 768px) {
-            .section {
-                margin: 20px 10px;
-                padding: 20px;
-            }
-            h1 {
-                font-size: 2em;
-            }
-        }
-        .contribution-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .contribution-table th, .contribution-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .contribution-table th {
-            background-color: #3498db;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .contribution-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        .contribution-table tr:hover {
-            background-color: #f1f4f6;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <h1>Social Media and Mental Health Analysis</h1>
     <h3>CS 7641 Project Proposal - Team 39</h3>
+
     <div class="section">
         <h2>Problem Definition</h2>
         <h3>Problem:</h3>
@@ -147,6 +27,7 @@
             </li>
         </ul>
     </div>
+
     <div class="section">
         <h2>Literature Review</h2>
         <ul>
@@ -155,11 +36,13 @@
             <li><strong>The Relationship Between Facebook Use and Well-Being:</strong> Activities of Facebook users were used to measure user's psychological well being. Findings showed that communication with people users were close to in real life directly influenced their perceived well being.</li>
         </ul>
     </div>
+
     <div class="section">
         <h2>Database Description</h2>
         <p><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/emirhanai/social-media-usage-and-emotional-well-being/data" target="_blank">Kaggle Dataset</a></p>
         <p><strong>Description:</strong> This dataset contains a thousand data points that contains information about users' activity on a social media platform like Instagram. Attributes in this dataset include biological info like age and metric collected info like daily usage time. The dataset's main purpose is centered around how users interaction with a social media platform has an effect on their mental health.</p>
     </div>
+
     <div class="section">
         <h2>Goals & Expected Results</h2>
         <h3>Expected results:</h3>
@@ -167,14 +50,17 @@
             <li>We expect to see a negative effect on mood the higher the amount of time a user spends on social media</li>
             <li>If there is a correlation, we expect to be able to predict a user's mood based on that</li>
         </ul>
+
         <h3>Goals:</h3>
         <ul>
             <li>Classify mood based on social media usage</li>
             <li>Show correlation between social media usage and mood</li>
         </ul>
     </div>
+
     <div class="section">
         <h2>Method</h2>
+
         <h3>Data Processing Methods:</h3>
         <p>An important first step was cleaning our dataset to ensure consistency. We:
         </p>
@@ -189,9 +75,18 @@
         </ul>
         <p>
             An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems. 
-            <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
+            <div style="text-align: center;">
+                <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
+            </div>
         </p>
-        <h3>Feature Reduction</h3>
+
+
+        <h3> Dataset Split</h3>
+        <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
+        We train our model on the train set and test it on the test set.
+        </p>
+
+        <h3> Feature Reduction </h3>
         <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
 
         <ul>
@@ -206,25 +101,16 @@
             <div style="text-align: center;">
                 <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
             </div>
-
+            
         </p>
         <p>
             However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
         </p>
-        <h3> Dataset Split</h3>
-        <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
-        We train our model on the train set and test it on the test set.
-        </p>
-        <p>Below are some visualizations comparing what the test and training sets look like against each other</p>
-        <div style="text-align: center;">
-            <img src="./pie.png" alt="Pie Chart" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
-            <img src="./emotions_v_comments.png" alt="Emotions vs Comments" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
-            <img src="./emotions_v_likes.png" alt="Emotions vs Likes" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
-            <img src="./emotions_v_messages_sent.png" alt="Emotions vs Messages Sent" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
-            <img src="./emotions_v_use time.png" alt="Emotions vs Use Time" style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto;">
-        </div>
-        
-        <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
+
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- 1. Bagging Classifier -->
+        <h2>Machine Learning Algorithm 1 (Supervised Learning):</h2>
+        <h3>1. Bagging Classifier Implementation</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
             <li><strong>Hyperparameters:</strong>
@@ -246,6 +132,7 @@
                 </ul>
             </li>
         </ul>
+
         <h3>Evaluation Metrics</h3>
         <ul>
             <li><strong>Accuracy:</strong> The percentage of correctly classified data points.</li>
@@ -253,11 +140,50 @@
             <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
             <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
+        <!-- Adding stuff about models and evaluation metrics... -->
+        <!-- Random Forrest.. -->
+        <h3>2. Random Forest Classifier Implementation</h3>
     
-            </div>
+        <div class="implementation-details">
+            <h4>Model Configuration</h4>
+            <ul>
+                <li><strong>Classifier:</strong> <code>RandomForestClassifier</code></li>
+                <li><strong>Random State:</strong> 1</li>
+                <li><strong>Best Parameters Found:</strong>
+                    <ul>
+                        <li><code>max_depth</code>: None</li>
+                        <li><code>max_features</code>: sqrt</li>
+                        <li><code>min_samples_leaf</code>: 1</li>
+                        <li><code>min_samples_split</code>: 2</li>
+                        <li><code>n_estimators</code>: 200</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="hyperparameters">
+            <h4>Grid Search Parameters</h4>
+            <table>
+                <tr><th>Parameter</th><th>Values Tested</th></tr>
+                <tr><td>n_estimators</td><td>[100, 200, 300]</td></tr>
+                <tr><td>max_depth</td><td>[None, 10, 20, 30]</td></tr>
+                <tr><td>min_samples_split</td><td>[2, 5, 10]</td></tr>
+                <tr><td>min_samples_leaf</td><td>[1, 2, 4]</td></tr>
+                <tr><td>max_features</td><td>['sqrt', 'log2']</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Why We Choose Our Models?</h2>
+        <p>As seen in the projects.ipynb file, we ran multiple models on our testing and training datasets. Using lazypredict, we determined that the Bagging Classifier and Random Forest models are ones we should use for this project because they met the high accuracy criteria (>= 95%). Furthermore, it made sense to use both models because they work well with categorical and numerical data, which both our datasets have. They also make sure that noise doesn't affect the predictions either. Random forest can also help with feature importance, something we had trouble with using just PCA, and thus make more accurate predictions</p>
+    </div>
+
     <div class="section">
         <h2>Results</h2>
+        <h3>1. Bagging Classifier: </h3>
         We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
+
         <table>
             <thead>
                 <tr>
@@ -290,18 +216,90 @@
             </tbody>
         </table>
         
+
         <h3>Visualizations</h3>
         <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
         <img src="./confusion_matrix_bagging.png" alt="Confusion Matrix of Bagging Model">
-        <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+        <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model without PCA">
+
         <h3>Discussion</h3>
         <ul>
             <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
-            <li>We see that the bagging mod el with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
+            <li>We see that the bagging model with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
         </ul>
+
+        <!-- Random Forrest CLassifier.... -->
+        <h3>2. Random Forrest Classifier: </h3>
+        We evaluate our model on the test set and get the following results in the table below for the Random Forrest model with and without pca:
+
+        <table class="metrics-table">
+        <thead>
+            <tr>
+                <th style="width: 25%">Metric</th>
+                <th style="width: 37.5%">Random Forest Model</th>
+                <th style="width: 37.5%">Random Forest Model with PCA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Accuracy</td>
+                <td class="metric-value">0.958</td>
+                <td class="metric-value metric-warning">0.440</td>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.420</td>
+            </tr>
+            <tr>
+                <td>Recall</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.430</td>
+            </tr>
+            <tr>
+                <td>F1-score</td>
+                <td class="metric-value">0.960</td>
+                <td class="metric-value metric-warning">0.430</td>
+            </tr>
+        </tbody>
+    </table>
+        
+        <h3>Classification Report</h3>
+        <table class="classification-report">
+            <tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>Support</th></tr>
+            <tr><td>0.0</td><td>0.93</td><td>1.00</td><td>0.97</td><td>14</td></tr>
+            <tr><td>1.0</td><td>0.90</td><td>1.00</td><td>0.95</td><td>9</td></tr>
+            <tr><td>2.0</td><td>1.00</td><td>1.00</td><td>1.00</td><td>25</td></tr>
+            <tr><td>3.0</td><td>1.00</td><td>0.95</td><td>0.97</td><td>20</td></tr>
+            <tr><td>4.0</td><td>0.93</td><td>0.93</td><td>0.93</td><td>15</td></tr>
+            <tr><td>5.0</td><td>0.92</td><td>0.86</td><td>0.89</td><td>14</td></tr>
+        </table>
+
+        <h3>Visualizations</h3>
+        <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
+        <img src="./rf_confusion_matrix_sans_PCA.png" alt="Confusion Matrix of Random Forrest Model without PCA">
+        <!-- <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model without PCA"> -->
+
+        <h3>Discussion</h3>
+        <ul>
+            <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
+        </ul>
+
         
         
     </div>
+
+    <div class="section">
+        <h2>Next Steps</h2>
+        <p>This list is a couple of ideas for what our group could possibly do between now and the final presentation:</p>
+            <ul>
+                <li>Consider using more advanced ensemble methods such as boosting or stacking.</li>
+                <li>Explore additional feature selection or transformations that might improve model performance.</li>
+                <li>Combine multiple models to create a more robust ensemble, potentially improving accuracy and generalization.</li>
+                <li>Research into feature reduction techniques that don't affect our models' accuracy too much, unlike PCA.</li>
+            </ul>
+    </div>
+
     <div class="section">
         <h2>References</h2>
         <ol>
@@ -310,6 +308,7 @@
             <li>M. Burke and R. E. Kraut, "The Relationship Between Facebook Use and Well-Being Depends on Communication Type and Tie Strength," Journal of Computer-Mediated Communication, vol. 21, no. 4, pp. 265–281, Jul. 2016, doi: <a href="https://doi.org/10.1111/jcc4.12162" target="_blank">https://doi.org/10.1111/jcc4.12162</a></li>
         </ol>
     </div>
+
     <div class="section">
         <h2>Important Links</h2>
         <ul class="links-list">
@@ -321,8 +320,13 @@
                 <strong>Project Timeline:</strong> 
                 <a href="https://docs.google.com/spreadsheets/d/14Z7yvJM7WWaoWD7GeCjrhkWzRf-Ky8z5/edit?usp=sharing&ouid=109571213662033046175&rtpof=true&sd=true" target="_blank">Gantt Chart</a>
             </li>
+            <li>
+                <strong>Video Presentation:</strong> 
+                <a href="https://youtu.be/jlIhNwVOmtI" target="_blank">YouTube Video</a>
+            </li>
         </ul>
     </div>
+
     <div class="section">
         <h2>Team Contributions</h2>
         <table class="contribution-table">
@@ -382,9 +386,11 @@
             </tbody>
         </table>
     </div>
+
     <div class="section">
         <h2>Project Award Eligibility</h2>
         <p>Our team would like to opt-in to be considered for the "Outstanding Project" award. We understand that the final project website and contributors of winning projects will be featured on the course website.</p>
     </div>
+
 </body>
 </html>
