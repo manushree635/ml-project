@@ -198,7 +198,8 @@
     </div>
 
     <div class="section">
-        <h2>Method</h2>
+        <h2>Data Preprocessing Methods</h2>
+
 
         <h3>Data Processing Methods:</h3>
         <p>An important first step was cleaning our dataset to ensure consistency. We:
@@ -208,45 +209,73 @@
             <li>Removed empty rows</li>
             <li>Removed duplicate entries</li>
             <li>Filled missing values in numerical columns with the mean</li>
-            <li>Verified that categorical data matched predefined categories and removed incorrect values 
+            <li>Verified that categorical data matched predefined categories and removed incorrect values
                 (for example we removed the entry with "Marie" in the Gender column, where the valid categories are "Male," "Female," and "Non-binary").
             </li>
         </ul>
         <p>
-            An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems. 
+            An example of misaligned columns is provided below. This was the biggest issue in the uncleaned dataset - overall, there were 72 of these problems.
             <div style="text-align: center;">
                 <img src="./misaligned columns 1.png" alt="Misaligned columns" style="width: 100%; max-width: 600px; height: auto;">
             </div>
         </p>
 
 
+
+
         <h3> Dataset Split</h3>
-        <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set. 
+        <p>Our dataset was split into train set and test set with 1000 data points in the train set and 97 data points in the test set.
         We train our model on the train set and test it on the test set.
         </p>
 
-        <h3> Feature Reduction </h3>
+
+        <h3> Data Visualization </h3>
+        <p>Below are some visualizations of our data after implementing the preprocessing steps.</p>
+
+
+        <div style="text-align: center;">
+            <img src="./pie.png" alt="Pie Chart" style="width: 100%; max-width: 600px; height: auto;">
+            <img src="./emotions_v_comments.png" alt="Emotions vs Comments" style="width: 100%; max-width: 600px; height: auto;">
+            <img src="./emotions_v_likes.png" alt="Emotions vs Likes" style="width: 100%; max-width: 600px; height: auto;">
+            <img src="./emotions_v_messages_sent.png" alt="Emotions vs Messages Sent" style="width: 100%; max-width: 600px; height: auto;">
+            <img src="./emotions_v_use time.png" alt="Emotions vs Use Time" style="width: 100%; max-width: 600px; height: auto;">
+        </div>
+
+
+        <h3> Feature Reduction Using PCA </h3>
         <p> Given that our dataset had 9 features (not including the y column 'Dominant_Emotion'), we decided to try to use PCA to conduct feature reduction. With feature reduction, we aimed to reduce the size of our training and testing datasets for better performance and reduce chances of overfitting. Steps in this process include: </p>
+
 
         <ul>
             <li>Finding the number of principal components (n) to keep, so that they keep at least 95% of the total variance</li>
             <li>Reducing both the training and testing datasets to have n principal components to serve as features and combining it with the y column 'Dominant_Emotion'</li>
             <li>Analyzing how our PCA feature reduction does on a couple of models</li>
 
+
         </ul>
+
 
         <p>
             Using the graph below, we determined that we could keep 4 Principal Components for every user, effectively reducing our training and testing dataset. This is because we are able to keep at least 95% of the total variance with just 4 Principal Components. After this, we adjusted our training and testing datasets.
             <div style="text-align: center;">
                 <img src="./PCA_Graph.png" style="width: 100%; max-width: 600px; height: auto;">
             </div>
-            
+           
         </p>
         <p>
             However, our PCA feature reduced datasets aren't working well on well-known ML models. The highest accuracy we got with a model was with k-Nearest Neighbors, but that was 49%. This is really bad and shows the tradeoff between reducing datasets to predicting data points. This point is something to keep in mind when looking at the results of our model with and without PCA.
         </p>
 
-        
+
+    </div>
+   
+    <div class="section">
+        <h2>Model Selection</h2>
+        TODO
+    </div>
+
+    <div class="section">
+        <h2>Model Overview</h2>
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
@@ -270,6 +299,12 @@
             </li>
         </ul>
 
+        <h3>Machine Learning Algorithm 2 (Supervised Learning):</h3>
+        TODO
+
+        <h3>Machine Learning Algorithm 3 (Unsupervised Learning):</h3>
+        TODO
+
         <h3>Evaluation Metrics</h3>
         <ul>
             <li><strong>Accuracy:</strong> The percentage of correctly classified data points.</li>
@@ -277,12 +312,22 @@
             <li><strong>Recall:</strong> The percentage of true positives that were correctly classified.</li>
             <li><strong>F1-score:</strong> The harmonic mean of precision and recall.</li>
         </ul>
-    
-            </div>
+
+    </div>
+
 
     <div class="section">
-        <h2>Results</h2>
+        <h2>Model Results</h2>
+
+        <h3>Unsupervised Model</h3>
+        TODO
+
+        <h3>Supervised Model</h3>
+        TODO
+
+        <h3>Bagging</h3>
         We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
+
 
         <table>
             <thead>
@@ -315,12 +360,14 @@
                 </tr>
             </tbody>
         </table>
-        
+       
+
 
         <h3>Visualizations</h3>
         <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
         <img src="./confusion_matrix_bagging.png" alt="Confusion Matrix of Bagging Model">
         <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+
 
         <h3>Discussion</h3>
         <ul>
@@ -329,8 +376,6 @@
         </ul>
 
 
-        
-        
     </div>
 
     <div class="section">
