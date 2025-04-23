@@ -420,10 +420,13 @@
         <strong>Confusion Matrix of Random Forest Model with PCA</strong>
         <img src="./rf-pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
 
-        <h3>Discussion</h3>
+        <h3>Insights</h3>
         <ul>
-            <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
-            <li>We see that the bagging model with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
+            <li><strong>Random Forest vs. Bagging:</strong> Both models perform similarly in terms of evaluation metrics such as accuracy, precision, recall, and F1-score. The primary difference is that Random Forest uses random feature selection, which did not significantly impact the results in this case.</li>
+            <li><strong>Impact of PCA:</strong> Applying PCA for feature reduction significantly worsened the performance of both models. For Random Forest, the accuracy dropped from 94% to 44%, indicating that the reduction to 4 principal components may have removed important information, especially since the original dataset used 6 features.</li>
+            <li><strong>Data Characteristics:</strong> The dataset's lack of feature richness may have contributed to the similar performance of Random Forest and Bagging. The presence of categorical features could also limit the effectiveness of these models.</li>
+            <li><strong>Model Robustness:</strong> Despite the use of PCA, both models demonstrated robustness in handling the dataset, although the reduction in performance highlights the importance of feature selection and dimensionality reduction techniques.</li>
+            <li><strong>Conclusion:</strong> The analysis suggests that while Random Forest and Bagging are effective for this dataset, careful consideration of feature selection and dimensionality reduction is crucial for optimizing model performance.</li>
         </ul>
 
     </div>
