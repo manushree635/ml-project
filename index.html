@@ -282,11 +282,11 @@
             <li><strong>Technical Definition:</strong> Bagging, or Bootstrap Aggregating, is an ensemble method that improves the stability and accuracy of machine learning algorithms by training multiple models on random subsets of the data and aggregating their predictions.</li>
             <li><strong>Hyperparameters:</strong>
                 <ul>
-                    <li><code>n_estimators=50</code>: Number of decision trees. This is the number of trees in the forest.</li>
-                    <li><code>max_samples=0.5</code>: 50% of training data per estimator. This is the number of samples to draw from the training data.</li>
-                    <li><code>max_features=0.5</code>: 50% of features per estimator. This is the number of features to consider when looking for the best split.</li>
-                    <li><code>bootstrap=True</code>: Enables bootstrapping. Bootstrap is a technique where the data sample is drawn with replacement.</li>
-                    <li><code>oob_score=True</code>: Uses out-of-bag samples for accuracy estimation. Out-of-bag samples are the samples that are not used to train the model.</li>
+                    <li><code>n_estimators</code>: Number of decision trees. This is the number of trees in the forest.</li>
+                    <li><code>max_samples</code>: 50% of training data per estimator. This is the number of samples to draw from the training data.</li>
+                    <li><code>max_features</code>: 50% of features per estimator. This is the number of features to consider when looking for the best split.</li>
+                    <li><code>bootstrap</code>: Enables bootstrapping. Bootstrap is a technique where the data sample is drawn with replacement.</li>
+                    <li><code>oob_score</code>: Uses out-of-bag samples for accuracy estimation. Out-of-bag samples are the samples that are not used to train the model.</li>
                 </ul>
             </li>
             <li><strong>Best Parameters Found:</strong>
@@ -294,6 +294,8 @@
                     <li><code>n_estimators=50</code></li>
                     <li><code>max_samples=0.5</code></li>
                     <li><code>max_features=0.5</code></li>
+                    <li><code>bootstrap=True</code></li>
+                    <li><code>oob_score=True</code></li>
                 </ul>
             </li>
         </ul>
@@ -326,8 +328,7 @@
         <ul>
             <li><strong>KMeans Clustering:</strong> Implemented using <code>KMeans</code> from the scikit-learn library.</li>
             <li><strong>Technical Definition:</strong> KMeans is an unsupervised learning algorithm that partitions data into K distinct clusters based on feature similarity. It iteratively assigns data points to clusters and updates cluster centroids to minimize the variance within each cluster.</li>
-            <li><strong>Hyperparameters:</strong>
-                <ul>
+            <li><strong>Hyperparameters:</strong>Conducted grid search to optimize parameters.
                     <li><code>n_clusters</code>: The number of clusters to form as well as the number of centroids to generate.</li>
                     <li><code>init</code>: Method for initialization, defaults to 'k-means++'.</li>
                     <li><code>n_init</code>: Number of time the k-means algorithm will be run with different centroid seeds.</li>
