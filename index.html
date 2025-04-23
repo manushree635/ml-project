@@ -410,6 +410,22 @@
             </tbody>
         </table>
 
+        <h3>KMeans Results</h3>
+        <p>The KMeans clustering model was evaluated using both 2 and 3 clusters, determined by the Elbow and Silhouette methods. Below are the insights and results from these analyses:</p>
+
+        <h4>Cluster Size of 3</h4>
+        <ul>
+            <li>Emotional states were successfully grouped based on social media usage patterns.</li>
+            <li>Negative emotions (Anger, Sadness, Anxiety) dominate the first cluster.</li>
+            <li>Positive emotion (Happiness) dominates the second cluster.</li>
+            <li>Neutral emotions (Neutral, Boredom) dominate the third cluster.</li>
+        </ul>
+
+        <h4>Cluster Size of 2</h4>
+        <ul>
+            <li>Successfully separated 'happiness' in our clusters, indicating distinct behavioral patterns associated with this emotion.</li>
+        </ul>
+
         <h3>Visualizations</h3>
         <strong>Confusion Matrix of Bagging Model</strong>
         <img src="./bg_no_pca.png" alt="Confusion Matrix of Bagging Model">
@@ -423,10 +439,11 @@
         <h3>Insights</h3>
         <ul>
             <li><strong>Random Forest vs. Bagging:</strong> Both models perform similarly in terms of evaluation metrics such as accuracy, precision, recall, and F1-score. The primary difference is that Random Forest uses random feature selection, which did not significantly impact the results in this case.</li>
-            <li><strong>Impact of PCA:</strong> Applying PCA for feature reduction significantly worsened the performance of both models. For Random Forest, the accuracy dropped from 94% to 44%, indicating that the reduction to 4 principal components may have removed important information, especially since the original dataset used 6 features.</li>
+            <li><strong>KMeans Insights:</strong> The KMeans model effectively grouped emotional states, revealing distinct patterns in social media usage. The separation of emotions like 'happiness' suggests clear behavioral patterns.</li>
+            <li><strong>Impact of PCA:</strong> Applying PCA for feature reduction significantly worsened the performance of both RF and Bagging models. For Random Forest, the accuracy dropped from 94% to 44%, indicating that the reduction to 4 principal components may have removed important information, especially since the original dataset used 6 features.</li>
             <li><strong>Data Characteristics:</strong> The dataset's lack of feature richness may have contributed to the similar performance of Random Forest and Bagging. The presence of categorical features could also limit the effectiveness of these models.</li>
             <li><strong>Model Robustness:</strong> Despite the use of PCA, both models demonstrated robustness in handling the dataset, although the reduction in performance highlights the importance of feature selection and dimensionality reduction techniques.</li>
-            <li><strong>Conclusion:</strong> The analysis suggests that while Random Forest and Bagging are effective for this dataset, careful consideration of feature selection and dimensionality reduction is crucial for optimizing model performance.</li>
+            <li><strong>Conclusion:</strong> The analysis suggests that while Random Forest and Bagging are effective for this dataset, careful consideration of feature selection and dimensionality reduction is crucial for optimizing model performance. KMeans provides valuable insights into user behavior and emotional states, complementing the supervised models.</li>
         </ul>
 
     </div>
@@ -516,6 +533,7 @@
                     <td>
                         <ul>
                             <li>Selection, Implementation, and Analysis of Bagging Model (Model 1)</li>
+                            <li>Selection, Implementation, and Analysis of KMeans (Model 3)</li>
                             <li>Update Github Page</li>
                         </ul>
                     </td>
@@ -539,123 +557,4 @@
         <p>Our team would like to opt-in to be considered for the "Outstanding Project" award. We understand that the final project website and contributors of winning projects will be featured on the course website.</p>
     </div>
 
-    <div class="section">
-        <h3>Unsupervised Model: KMeans</h3>
-        <p>We evaluated the KMeans clustering model using the Elbow and Silhouette methods to determine the optimal number of clusters. Based on these methods, we chose to analyze both 2 and 3 clusters.</p>
-
-        <div style="text-align: center;">
-            <img src="./elbow_method.png" alt="Elbow Method Chart" style="width: 100%; max-width: 600px; height: auto;">
-            <img src="./silhouette_method.png" alt="Silhouette Method Chart" style="width: 100%; max-width: 600px; height: auto;">
-        </div>
-
-        <h4>Cluster Analysis</h4>
-        <h5>Cluster 3 Analysis</h5>
-        <ul>
-            <li>Suggests that the K-Means has successfully grouped emotional states based on social media usage patterns.</li>
-            <li>Can expect to segment users based on their emotional responses.</li>
-            <li>Anger, Sadness, Anxiety (negative emotions) dominate the first cluster.</li>
-            <li>Happiness (positive emotion) dominates the second cluster.</li>
-            <li>Neutral, Boredom (neutral emotions) dominate the third cluster.</li>
-        </ul>
-
-        <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
-            <thead>
-                <tr style="background-color: #333; color: white;">
-                    <th style="padding: 8px; border: 1px solid #ddd;">Dominant Emotion</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Agression</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Anger</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Anxiety</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Boredom</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Happiness</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Neutral</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Sadness</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">% of Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd;">Cluster 0</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.0%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">26.38%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">19.66%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">3.36%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">11.51%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">17.75%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">21.34%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">33.52%</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd;">Cluster 1</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.35%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">7.07%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">12.37%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.0%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">67.84%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">4.24%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">8.13%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">22.75%</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd;">Cluster 2</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.0%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">4.23%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">19.12%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">29.23%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.37%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">31.07%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">15.99%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">43.73%</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h5>Cluster 2 Analysis</h5>
-        <ul>
-            <li>Successfully separated 'happiness' in our clusters.</li>
-            <li>Any time we are able to separate an emotion in a cluster, it suggests that there are distinct behavioral patterns associated with the emotion.</li>
-        </ul>
-
-        <h5>Cluster 2 Table</h5>
-        <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
-            <thead>
-                <tr style="background-color: #333; color: white;">
-                    <th style="padding: 8px; border: 1px solid #ddd;">Dominant Emotion</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Agression</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Anger</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Anxiety</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Boredom</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Happiness</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Neutral</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">Sadness</th>
-                    <th style="padding: 8px; border: 1px solid #ddd;">% of Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd;">Cluster 0</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.0%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">13.73%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">20.32%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">18.84%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">3.36%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">24.63%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">19.11%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">72.14%</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd;">Cluster 1</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.35%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">9.76%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">10.8%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">0.35%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">62.72%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">8.01%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">8.01%</td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">27.86%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-</body>
-</html>
+    
