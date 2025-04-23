@@ -374,7 +374,6 @@
         <h3>Bagging</h3>
         We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
 
-
         <table>
             <thead>
                 <tr>
@@ -406,21 +405,57 @@
                 </tr>
             </tbody>
         </table>
-       
 
+        <h3>Random Forest</h3>
+        <p>We evaluate our Random Forest model on the test set and get the following results:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Random Forest Model</th>
+                    <th>Random Forest Model with PCA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.94</td>
+                    <td>0.44</td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.94</td>
+                    <td>0.42</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.94</td>
+                    <td>0.44</td>
+                </tr>
+                <tr>
+                    <td>F1-score</td>
+                    <td>0.94</td>
+                    <td>0.43</td>
+                </tr>
+            </tbody>
+        </table>
 
         <h3>Visualizations</h3>
-        <p>We also created a confusion matrix for the bagging model with and without pca to visualize the results.</p>
+        <strong>Confusion Matrix of Bagging Model</strong>
         <img src="./confusion_matrix_bagging.png" alt="Confusion Matrix of Bagging Model">
+        <strong>Confusion Matrix of Bagging Model with PCA</strong>
         <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
-
+        <strong>Confusion Matrix of Random Forest Model</strong>
+        <img src="./rf_no_pca.png" alt="Confusion Matrix of Random Forest Model">
+        <strong>Confusion Matrix of Random Forest Model with PCA</strong>
+        <img src="./rf_pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
 
         <h3>Discussion</h3>
         <ul>
             <li>Our model has accuracy of 0.96. This is reasonable because it means that our model is able to correctly classify 96% of the data points which is around 93 samples out of 97.</li>
             <li>We see that the bagging model with pca has a lower accuracy than the bagging model without pca. This is likely because the pca reduces the number of features and removes some important information.</li>
         </ul>
-
 
     </div>
 
