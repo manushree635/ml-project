@@ -271,7 +271,12 @@
    
     <div class="section">
         <h2>Model Selection</h2>
-        TODO
+        <p>We selected the Bagging, Random Forest, and KMeans models for the following reasons:</p>
+        <ul>
+            <li><strong>Diversity in Learning Approaches:</strong> By choosing both supervised (Bagging and Random Forest) and unsupervised (KMeans) learning models, we can explore different aspects of the data, such as classification accuracy and clustering patterns, providing a comprehensive analysis of social media's impact on mental health.</li>
+            <li><strong>Robustness and Generalization:</strong> Ensemble methods like Bagging and Random Forest are known for their ability to improve model robustness and reduce overfitting by aggregating predictions from multiple decision trees, making them suitable for complex datasets with potential noise.</li>
+            <li><strong>Exploratory Insights:</strong> KMeans clustering allows us to uncover hidden patterns and groupings in the data, which can lead to insights about user behavior and emotional states that are not immediately apparent through supervised learning alone.</li>
+        </ul>
     </div>
 
     <div class="section">
@@ -327,7 +332,7 @@
         <h3>Machine Learning Algorithm 3 (Unsupervised Learning):</h3>
         <ul>
             <li><strong>KMeans Clustering:</strong> Implemented using <code>KMeans</code> from the scikit-learn library.</li>
-            <li><strong>Technical Definition:</strong> KMeans is an unsupervised learning algorithm that partitions data into K distinct clusters based on feature similarity. It iteratively assigns data points to clusters and updates cluster centroids to minimize the variance within each cluster.</li>
+            <li><strong>Technical Definition:</strong> KMeans is an unsupervised learning algorithm that partitions data into K distinct clusters based on feature similarity. It iteratively assigns data points to clusters and updates cluster centroids to minimize the variance within each cluster. Cluster users based on behavioral factors to explore how these clusterings relate to the separability of their dominant emotions. This could help us identify if meaningful relationships exist in our data.</li>
             <li><strong>Hyperparameters:</strong>Conducted grid search to optimize parameters.
                     <li><code>n_clusters</code>: The number of clusters to form as well as the number of centroids to generate.</li>
                     <li><code>init</code>: Method for initialization, defaults to 'k-means++'.</li>
@@ -335,15 +340,13 @@
                     <li><code>max_iter</code>: Maximum number of iterations of the k-means algorithm for a single run.</li>
                 </ul>
             </li>
-            <li><strong>Objective:</strong> Cluster users based on behavioral factors to explore how these clusterings relate to the separability of their dominant emotions. This could help us identify if meaningful relationships exist in our data.</li>
-            <li><strong>Challenge:</strong> Determining the optimal number of clusters is crucial for meaningful analysis.</li>
+                    <li><strong>Challenge:</strong> Determining the optimal number of clusters is crucial for meaningful analysis.</li>
             <li><strong>Methods to Determine Optimal Clusters:</strong>
                 <ul>
                     <li><strong>Elbow Method:</strong> This method involves plotting the explained variation as a function of the number of clusters and picking the elbow of the curve as the number of clusters to use. It helps in identifying the point where adding more clusters does not significantly improve the model.</li>
                     <li><strong>Silhouette Score:</strong> This score measures how similar an object is to its own cluster compared to other clusters. A high silhouette score indicates that the object is well matched to its own cluster and poorly matched to neighboring clusters, thus helping in validating the consistency within clusters of data.</li>
                 </ul>
             </li>
-            <li><strong>Expected Outcome:</strong> By using KMeans clustering, we aim to uncover patterns in user behavior that correlate with their emotional states, potentially leading to insights into how social media usage impacts mental health.</li>
             <li><strong>Best Parameters:</strong> {'kmeans__init': 'k-means++', 'kmeans__n_clusters': 2, 'kmeans__n_init': 10}</li>
         </ul>
 
