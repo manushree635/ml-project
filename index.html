@@ -279,6 +279,7 @@
         <h3>Machine Learning Algorithm 1 (Supervised Learning):</h3>
         <ul>
             <li><strong>Bagging Model:</strong> Implemented using <code>BaggingClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
+            <li><strong>Technical Definition:</strong> Bagging, or Bootstrap Aggregating, is an ensemble method that improves the stability and accuracy of machine learning algorithms by training multiple models on random subsets of the data and aggregating their predictions.</li>
             <li><strong>Hyperparameters:</strong>
                 <ul>
                     <li><code>n_estimators=50</code>: Number of decision trees. This is the number of trees in the forest.</li>
@@ -288,20 +289,19 @@
                     <li><code>oob_score=True</code>: Uses out-of-bag samples for accuracy estimation. Out-of-bag samples are the samples that are not used to train the model.</li>
                 </ul>
             </li>
-            <li><strong>Hyperparameter Search:</strong> Conducted grid search to optimize parameters for the bagging model. The parameters we tuned were:
+            <li><strong>Best Parameters Found:</strong>
                 <ul>
-                    <li><code>n_estimators: [10, 50, 100]</code></li>
-                    <li><code>max_samples: [0.5, 0.7, 1.0]</code></li>
-                    <li><code>max_features: [0.5, 0.7, 1.0]</code></li>
-                    <li><code>bootstrap: [True, False]</code></li>
-                    <li><code>bootstrap_features: [True, False]</code></li>
+                    <li><code>n_estimators=50</code></li>
+                    <li><code>max_samples=0.5</code></li>
+                    <li><code>max_features=0.5</code></li>
                 </ul>
             </li>
         </ul>
 
         <h3>Machine Learning Algorithm 2 (Supervised Learning):</h3>
         <ul>
-            <li><strong>Random Forest Model:</strong> An ensemble model like bagging which uses multiple decision trees but here we randomly select features at each node split. This randomness helps us generalize the ensemble and avoid overfitting.</li>
+            <li><strong>Random Forest Model:</strong> Implemented using <code>RandomForestClassifier</code> with <code>DecisionTreeClassifier</code> as the base estimator.</li>
+            <li><strong>Technical Definition:</strong> Random Forest is an ensemble learning method that constructs multiple decision trees during training and outputs the mode of their predictions for classification tasks. It introduces randomness by selecting random subsets of features for each split, which helps in reducing overfitting.</li>
             <li><strong>Overview:</strong>
                 <ul>
                     <li>Select random number of features and data-points for each decision-tree</li>
@@ -322,7 +322,8 @@
 
         <h3>Machine Learning Algorithm 3 (Unsupervised Learning):</h3>
         <ul>
-            <li><strong>KMeans Clustering:</strong></li>
+            <li><strong>KMeans Clustering:</strong> Implemented using <code>KMeans</code> from the scikit-learn library.</li>
+            <li><strong>Technical Definition:</strong> KMeans is an unsupervised learning algorithm that partitions data into K distinct clusters based on feature similarity. It iteratively assigns data points to clusters and updates cluster centroids to minimize the variance within each cluster.</li>
             <li><strong>Objective:</strong> Cluster users based on behavioral factors to explore how these clusterings relate to the separability of their dominant emotions. This could help us identify if meaningful relationships exist in our data.</li>
             <li><strong>Challenge:</strong> Determining the optimal number of clusters is crucial for meaningful analysis.</li>
             <li><strong>Methods to Determine Optimal Clusters:</strong>
