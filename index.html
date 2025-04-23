@@ -365,91 +365,60 @@
     <div class="section">
         <h2>Model Results</h2>
 
-        <h3>Unsupervised Model</h3>
-        TODO
+        <h3>Combined Results for Bagging and Random Forest Models</h3>
+        <p>The table below shows the performance metrics for both the Bagging and Random Forest models, with and without PCA. The highest values for each metric are highlighted.</p>
 
-        <h3>Supervised Model</h3>
-        TODO
-
-        <h3>Bagging</h3>
-        We evaluate our model on the test set and get the following results in the table below for the bagging model with and without pca:
-
-        <table>
+        <table style="width:100%; border-collapse: collapse;">
             <thead>
-                <tr>
-                    <th>Metric</th>
-                    <th>Bagging Model</th>
-                    <th>Bagging Model with PCA</th>
+                <tr style="background-color: #3498db; color: white;">
+                    <th style="padding: 12px; border: 1px solid #ddd;">Metric</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Bagging Model</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Bagging Model with PCA</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Random Forest Model</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Random Forest Model with PCA</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Accuracy</td>
-                    <td>0.96</td>
-                    <td>0.43</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Accuracy</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.39</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.44</td>
                 </tr>
                 <tr>
-                    <td>Precision</td>
-                    <td>0.95</td>
-                    <td>0.42</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Precision</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.42</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.42</td>
                 </tr>
                 <tr>
-                    <td>Recall</td>
-                    <td>0.96</td>
-                    <td>0.43</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Recall</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.39</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.44</td>
                 </tr>
                 <tr>
-                    <td>F1-score</td>
-                    <td>0.96</td>
-                    <td>0.43</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Random Forest</h3>
-        <p>We evaluate our Random Forest model on the test set and get the following results:</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Metric</th>
-                    <th>Random Forest Model</th>
-                    <th>Random Forest Model with PCA</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Accuracy</td>
-                    <td>0.94</td>
-                    <td>0.44</td>
-                </tr>
-                <tr>
-                    <td>Precision</td>
-                    <td>0.94</td>
-                    <td>0.42</td>
-                </tr>
-                <tr>
-                    <td>Recall</td>
-                    <td>0.94</td>
-                    <td>0.44</td>
-                </tr>
-                <tr>
-                    <td>F1-score</td>
-                    <td>0.94</td>
-                    <td>0.43</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">F1-score</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.39</td>
+                    <td style="padding: 12px; border: 1px solid #ddd; background-color: #e0f7fa;">0.94</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">0.43</td>
                 </tr>
             </tbody>
         </table>
 
         <h3>Visualizations</h3>
         <strong>Confusion Matrix of Bagging Model</strong>
-        <img src="./confusion_matrix_bagging.png" alt="Confusion Matrix of Bagging Model">
+        <img src="./bg_no_pca.png" alt="Confusion Matrix of Bagging Model">
         <strong>Confusion Matrix of Bagging Model with PCA</strong>
-        <img src="./confusion_matrix_bagging_without_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+        <img src="./bg_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
         <strong>Confusion Matrix of Random Forest Model</strong>
         <img src="./rf_no_pca.png" alt="Confusion Matrix of Random Forest Model">
         <strong>Confusion Matrix of Random Forest Model with PCA</strong>
-        <img src="./rf_pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
+        <img src="./rf-pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
 
         <h3>Discussion</h3>
         <ul>
