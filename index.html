@@ -410,7 +410,18 @@
             </tbody>
         </table>
 
-        <h3>KMeans Results</h3>
+        <h3>Visualizations for Bagging and Random Forest Models</h3>
+        <strong>Confusion Matrix of Bagging Model</strong>
+        <img src="./bg_no_pca.png" alt="Confusion Matrix of Bagging Model">
+        <strong>Confusion Matrix of Bagging Model with PCA</strong>
+        <img src="./bg_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
+        <strong>Confusion Matrix of Random Forest Model</strong>
+        <img src="./rf_no_pca.png" alt="Confusion Matrix of Random Forest Model">
+        <strong>Confusion Matrix of Random Forest Model with PCA</strong>
+        <img src="./rf-pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
+
+
+        <h3>KMeans Results with Visualizations</h3>
         <p>The KMeans clustering model was evaluated using both 2 and 3 clusters, determined by the Elbow and Silhouette methods. Below are the insights and results from these analyses:</p>
 
         <div style="text-align: center;">
@@ -529,17 +540,8 @@
             </tbody>
         </table>
 
-        <h3>Visualizations</h3>
-        <strong>Confusion Matrix of Bagging Model</strong>
-        <img src="./bg_no_pca.png" alt="Confusion Matrix of Bagging Model">
-        <strong>Confusion Matrix of Bagging Model with PCA</strong>
-        <img src="./bg_pca.png" alt="Confusion Matrix of Bagging Model with PCA">
-        <strong>Confusion Matrix of Random Forest Model</strong>
-        <img src="./rf_no_pca.png" alt="Confusion Matrix of Random Forest Model">
-        <strong>Confusion Matrix of Random Forest Model with PCA</strong>
-        <img src="./rf-pca.png" alt="Confusion Matrix of Random Forest Model with PCA">
-
-        <h3>Insights</h3>
+        
+        <h3>Comparisons and Insights</h3>
         <ul>
             <li><strong>Random Forest vs. Bagging:</strong> Both models perform similarly in terms of evaluation metrics such as accuracy, precision, recall, and F1-score. The primary difference is that Random Forest uses random feature selection, which did not significantly impact the results in this case.</li>
             <li><strong>KMeans Insights:</strong> The KMeans model effectively grouped emotional states, revealing distinct patterns in social media usage. The separation of emotions like 'happiness' suggests clear behavioral patterns.</li>
@@ -555,12 +557,11 @@
         <h2>Next Steps</h2>
         <p>To further enhance our analysis and model performance, we propose the following next steps:</p>
         <ul>
-            <li><strong>Advanced Ensemble Methods:</strong> Explore more advanced ensemble techniques such as boosting and stacking to improve model accuracy and robustness.</li>
-            <li><strong>Feature Engineering:</strong> Investigate additional feature selection and transformation techniques to enhance model performance, including domain-specific features that may capture more nuanced patterns in the data.</li>
-            <li><strong>Hybrid Models:</strong> Combine multiple models to create a more robust ensemble, potentially improving accuracy and generalization by leveraging the strengths of different algorithms.</li>
-            <li><strong>Dimensionality Reduction:</strong> Research alternative dimensionality reduction techniques that maintain model accuracy while reducing complexity, such as t-SNE or LDA.</li>
-            <li><strong>Data Augmentation:</strong> Consider augmenting the dataset with synthetic data or additional sources to increase diversity and improve model training.</li>
-            <li><strong>Real-time Analysis:</strong> Develop capabilities for real-time analysis and prediction to provide timely insights into social media's impact on mental health.</li>
+            <li>< Explore more advanced ensemble techniques such as boosting and stacking to improve model accuracy and robustness.</li>
+            <li>Feature Engineering: Investigate additional feature selection and transformation techniques to enhance model performance, including domain-specific features that may capture more nuanced patterns in the data.</li>
+            <li>Hybrid Models: Combine multiple models to create a more robust ensemble, potentially improving accuracy and generalization by leveraging the strengths of different algorithms.</li>
+            <li>Dimensionality Reduction: Research alternative dimensionality reduction techniques that maintain model accuracy while reducing complexity, such as t-SNE or LDA.</li>
+            <li>Data Augmentation: Consider augmenting the dataset with synthetic data or additional sources to increase diversity and improve model training.</li>
         </ul>
     </div>
 
